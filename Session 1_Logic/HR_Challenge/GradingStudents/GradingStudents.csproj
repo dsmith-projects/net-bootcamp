@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{8740072C-1DE5-4AE2-AB2D-B6CB1C2159D1}</ProjectGuid>
+    <ProjectGuid>{A6066A4A-955B-4EF4-A1D0-0B72645328E1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AVeryBigSum</RootNamespace>
-    <AssemblyName>Algorithms_Challenge</AssemblyName>
+    <RootNamespace>GradingStudents</RootNamespace>
+    <AssemblyName>GradingStudents</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

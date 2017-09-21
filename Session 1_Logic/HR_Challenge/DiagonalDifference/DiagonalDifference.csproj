@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{8740072C-1DE5-4AE2-AB2D-B6CB1C2159D1}</ProjectGuid>
+    <ProjectGuid>{A18B9DB5-A8DE-45A9-B06D-8E8C8B9674C4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AVeryBigSum</RootNamespace>
-    <AssemblyName>Algorithms_Challenge</AssemblyName>
+    <RootNamespace>DiagonalDifference</RootNamespace>
+    <AssemblyName>DiagonalDifference</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
