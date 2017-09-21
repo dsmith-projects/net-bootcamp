@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagonalDifference", "Diago
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradingStudents", "GradingStudents\GradingStudents.csproj", "{A6066A4A-955B-4EF4-A1D0-0B72645328E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsExploration", "MarsExploration\MarsExploration.csproj", "{838F373D-8112-4401-8AA8-BDC128EB6857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -25,5 +27,9 @@ Global
 		{A6066A4A-955B-4EF4-A1D0-0B72645328E1}.Debug|x86.Build.0 = Debug|x86
 		{A6066A4A-955B-4EF4-A1D0-0B72645328E1}.Release|x86.ActiveCfg = Release|x86
 		{A6066A4A-955B-4EF4-A1D0-0B72645328E1}.Release|x86.Build.0 = Release|x86
+		{838F373D-8112-4401-8AA8-BDC128EB6857}.Debug|x86.ActiveCfg = Debug|x86
+		{838F373D-8112-4401-8AA8-BDC128EB6857}.Debug|x86.Build.0 = Debug|x86
+		{838F373D-8112-4401-8AA8-BDC128EB6857}.Release|x86.ActiveCfg = Release|x86
+		{838F373D-8112-4401-8AA8-BDC128EB6857}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
