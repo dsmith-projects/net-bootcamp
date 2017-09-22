@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradingStudents", "GradingS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsExploration", "MarsExploration\MarsExploration.csproj", "{838F373D-8112-4401-8AA8-BDC128EB6857}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcsCakewalk", "MarcsCakewalk\MarcsCakewalk.csproj", "{B58349F7-6E09-4B87-A1B3-DA7BEA66E1F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,5 +33,9 @@ Global
 		{838F373D-8112-4401-8AA8-BDC128EB6857}.Debug|x86.Build.0 = Debug|x86
 		{838F373D-8112-4401-8AA8-BDC128EB6857}.Release|x86.ActiveCfg = Release|x86
 		{838F373D-8112-4401-8AA8-BDC128EB6857}.Release|x86.Build.0 = Release|x86
+		{B58349F7-6E09-4B87-A1B3-DA7BEA66E1F3}.Debug|x86.ActiveCfg = Debug|x86
+		{B58349F7-6E09-4B87-A1B3-DA7BEA66E1F3}.Debug|x86.Build.0 = Debug|x86
+		{B58349F7-6E09-4B87-A1B3-DA7BEA66E1F3}.Release|x86.ActiveCfg = Release|x86
+		{B58349F7-6E09-4B87-A1B3-DA7BEA66E1F3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
