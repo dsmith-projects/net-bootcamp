@@ -101,7 +101,14 @@ namespace InventoryApp
         }
 
         public static int DisplayMenu() {
-            
+			int option = 0;
+
+			while (true)
+            {
+                Console.WriteLine("**** MAIN MENU ****");
+                Console.WriteLine();
+                Console.WriteLine("1. ");
+            }
         }
 
     }
