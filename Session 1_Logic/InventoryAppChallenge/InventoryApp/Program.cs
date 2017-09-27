@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace InventoryApp
 {
@@ -7,6 +8,9 @@ namespace InventoryApp
         public static void Main(string[] args)
         {
 			Console.WriteLine("Number of command line parameters = {0}", args.Length);
+            string defaultUsername = "";
+            string defaultPassword = "";
+            bool locked;
 
             if (args.Length == 1)
 			{
@@ -17,7 +21,13 @@ namespace InventoryApp
                     Console.WriteLine("authenticated: {0}", authenticated);
                     if (authenticated)
                     {
-                        RunAdminModule();
+                        defaultUsername = ConfigurationManager.AppSettings.Get("username");
+                        defaultPassword = ConfigurationManager.AppSettings.Get("password");
+                        locked = bool.Parse(ConfigurationManager.AppSettings.Get("locked"));
+                        Console.WriteLine("Username read from app.config: {0}", defaultUsername);
+                        Console.WriteLine("Password read from app.config: {0}", defaultPassword);
+                        Console.WriteLine("Locked read from app.config: {0}", locked);
+                        //RunAdminModule();
                     } else
                     {
                         Console.WriteLine("Access denied. Try again or contact your system administrator");
@@ -36,6 +46,7 @@ namespace InventoryApp
 			{
 				Console.WriteLine("Please try again! Make sure you start the app as a user or as the admin");
 			}
+            Console.ReadLine();
         }
 
         public static bool AuthenticateAdminUser() 
@@ -79,37 +90,37 @@ namespace InventoryApp
             return authenticated;
         }
 
-        public static void RunAdminModule()
-        {
-            int option = DisplayMenu();
+   //     public static void RunAdminModule()
+   //     {
+   //         int option = DisplayMenu();
 
-            switch (option)
-            {
-                case 1:
-                    break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					break;
-                default:
-                    break;
-            }
-        }
+   //         switch (option)
+   //         {
+   //             case 1:
+   //                 break;
+			//	case 2:
+			//		break;
+			//	case 3:
+			//		break;
+			//	case 4:
+			//		break;
+			//	case 5:
+			//		break;
+   //             default:
+   //                 break;
+   //         }
+   //     }
 
-        public static int DisplayMenu() {
-			int option = 0;
+   //     public static int DisplayMenu() {
+			//int option = 0;
 
-			while (true)
-            {
-                Console.WriteLine("**** MAIN MENU ****");
-                Console.WriteLine();
-                Console.WriteLine("1. ");
-            }
-        }
+			//while (true)
+   //         {
+   //             Console.WriteLine("**** MAIN MENU ****");
+   //             Console.WriteLine();
+   //             Console.WriteLine("1. ");
+   //         }
+   //     }
 
     }
 }
