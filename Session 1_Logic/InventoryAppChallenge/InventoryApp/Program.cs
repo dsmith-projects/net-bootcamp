@@ -76,14 +76,17 @@ namespace InventoryApp
                     userVerified = true;
                     authenticated = true;
                 }
-                else if(numAttempt < 3)
+                else 
                 {
-                    Console.WriteLine("Try again! Either the username or the password is incorrect. {0} attemps left", (MaxNumAttempts - numAttempt));
+                    if (numAttempt < 3)
+                    {
+                        Console.WriteLine("Try again! Either the username or the password is incorrect. {0} attemps left", (MaxNumAttempts - numAttempt));
+                    }
                 }
 
             } while (!userVerified && numAttempt < MaxNumAttempts);
 
-            if(numAttempt >= MaxNumAttempts) {
+            if(numAttempt > MaxNumAttempts) {
                 Console.WriteLine("Maximum number of attempts reached\nLocking your account. Contact your system administrator >> TODO");
             }
 
