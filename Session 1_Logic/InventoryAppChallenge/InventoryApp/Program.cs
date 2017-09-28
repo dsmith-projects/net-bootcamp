@@ -9,7 +9,7 @@ namespace InventoryApp
         {
 			string defaultUsername = ConfigurationManager.AppSettings.Get("username");
             string defaultPassword = ConfigurationManager.AppSettings.Get("password");
-            bool locked = bool.Parse(ConfigurationManager.AppSettings.Get("locked"));
+            bool locked = Properties.Settings.Default.Locked;
 
             if (!locked)
             {
@@ -29,8 +29,9 @@ namespace InventoryApp
                         }
                         else
                         {
-                            ConfigurationManager.AppSettings.Set("locked", "true");
-                            //Console.WriteLine("Access denied. Try again or contact your system administrator");
+                            Console.WriteLine("Access denied. The application is locked. Contact your system administrator!");
+                            Properties.Settings.Default.Locked = true;
+                            Properties.Settings.Default.Save();
                         }
                     }
                     else
