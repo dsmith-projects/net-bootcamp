@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using System.Text;
 
 namespace InventoryApp
 {
@@ -14,7 +16,7 @@ namespace InventoryApp
             if (!locked)
             {
                 //Console.WriteLine("Number of command line parameters = {0}", args.Length);
-                Console.WriteLine("BIENVENIDO(A)\n");
+                Console.WriteLine("WELCOME TO THE INVENTORY PROGRAM\n");
 
                 if (args.Length == 1)
                 {
@@ -29,8 +31,8 @@ namespace InventoryApp
                         }
                         else
                         {
-                            Console.WriteLine("Access denied. The application is locked. Contact your system administrator!");
-                            Properties.Settings.Default.Locked = true;
+                            Console.WriteLine("\nAccess denied!\nThe application was locked because you reached the maximum number of attempts to enter the correct username and password.\nContact your system administrator!");
+							Properties.Settings.Default.Locked = true;
                             Properties.Settings.Default.Save();
                         }
                     }
@@ -42,6 +44,7 @@ namespace InventoryApp
                 else if (args.Length == 0)
                 {
                     Console.WriteLine("Run app as user");
+                    RunUserModule();
                 }
                 else
                 {
@@ -49,9 +52,9 @@ namespace InventoryApp
                 }
             } else
             {
-                Console.WriteLine("Access denied. The application is locked. Contact your system administrator!");
+                Console.WriteLine("Access denied. The application is locked due to too many attempts to enter an incorrect username or password. Contact your system administrator!");
             }
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         public static bool AuthenticateAdminUser() 
@@ -92,10 +95,6 @@ namespace InventoryApp
                 Console.WriteLine();
             } while (!userVerified && numAttempt < MaxNumAttempts);
 
-            if(numAttempt > MaxNumAttempts) {
-                Console.WriteLine("Maximum number of attempts reached\nLocking your account. Contact your system administrator >> TODO");
-            }
-
             return authenticated;
         }
 
@@ -105,12 +104,13 @@ namespace InventoryApp
 
             string input = "";
             int option = 0;
+            int exitValue = 5;
 
-            while (option != 5)
+			while (option != exitValue)
             {
-                DisplayMenu();
+                DisplayAdminMenu();
 
-				Console.Write("\nIngrese una opción: ");
+                Console.Write("\nChoose an option: ");
 				input = Console.ReadLine();
 				bool result = Int32.TryParse(input, out option);
 
@@ -120,9 +120,11 @@ namespace InventoryApp
 					{
 						case 1:
 							Console.WriteLine("LIST inventory items\nDisplays a list of all items in the inventory");
+                            ListInventory(); // this method should receive the file containing the inventory as a parameter
 							break;
 						case 2:
 							Console.WriteLine("ADD a new item to inventory\nAllows you to create a new item and add it to the inventory");
+                            AddItemToInventory();
 							break;
 						case 3:
 							Console.WriteLine("MODIFY an item quantity\nLets you set the number of supplies for an item in the inventory");
@@ -149,7 +151,7 @@ namespace InventoryApp
 
         }
 
-        public static void DisplayMenu() {
+        public static void DisplayAdminMenu() {
             Console.WriteLine("**** MAIN MENU ****");
             Console.WriteLine();
             Console.WriteLine("1. LIST inventory items");
@@ -159,5 +161,133 @@ namespace InventoryApp
             Console.WriteLine("5. EXIT application");
         }
 
+
+		public static void RunUserModule()
+		{
+			Console.Clear();
+
+			string input = "";
+			int option = 0;
+            int exitValue = 4;
+
+			while (option != exitValue)
+			{
+				DisplayUserMenu();
+
+				Console.Write("\nIngrese una opción: ");
+				input = Console.ReadLine();
+				bool result = Int32.TryParse(input, out option);
+
+				if (result)
+				{
+					switch (option)
+					{
+						case 1:
+							Console.WriteLine("LIST inventory items\n");
+                            ListInventory();
+							break;
+						case 2:
+							Console.WriteLine("CREATE new invoice\n");
+							break;
+						case 3:
+							Console.WriteLine("DISPLAY invoice\n");
+							break;
+						case 4:
+							Console.WriteLine("EXITING the application. Thank you!");
+							break;
+						case -1:
+							Console.WriteLine("TODO");
+							break;
+						default:
+							Console.WriteLine("TODO");
+							break;
+					}
+				}
+				else
+				{
+					Console.WriteLine("Invalid input. Please try again");
+				}
+			}
+
+		}
+
+		public static void DisplayUserMenu()
+		{
+			Console.WriteLine("**** MAIN MENU ****");
+			Console.WriteLine();
+			Console.WriteLine("1. LIST inventory items");
+			Console.WriteLine("2. CREATE new invoice");
+			Console.WriteLine("3. DISPLAY invoice");
+			Console.WriteLine("4. EXIT application");
+		}
+
+        public static void ListInventory() 
+        {
+            Console.WriteLine("Pending");
+            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        public static void AddItemToInventory() 
+        {
+            string inventoryFilePath = AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
+
+            string productId = "";
+            string productName = "";
+            decimal cost = 0;
+            int quantity = 0;
+
+            Console.WriteLine("*** NEW ITEM ***");
+            Console.WriteLine();
+            Console.WriteLine("Provide the following data: ");
+            Console.WriteLine();
+            Console.Write(">> Product ID: ");
+            productId = Console.ReadLine();
+            Console.Write(">> Name: ");
+            productName = Console.ReadLine();
+            cost = RequestProductCost();
+            quantity = RequestProductQuantity();
+
+            // I must include a try/catch block for the following section
+            StringBuilder newLine = new StringBuilder();
+			newLine.AppendLine(productId + "," + productName + "," + cost + "," + quantity);
+            File.AppendAllText(inventoryFilePath, newLine.ToString());
+            Console.Clear();
+            Console.WriteLine(">>> Product item SUCCESSFULLY added to the inventory\n");
+        }
+
+        public static int RequestProductQuantity() {
+            int quantity = 0;
+            bool converted = false;
+
+            do
+            {
+                Console.Write(">> Available Quantity: ");
+                string quantityValue = Console.ReadLine();
+				converted = Int32.TryParse(quantityValue, out quantity);
+                if (!converted)
+                {
+                    Console.WriteLine("\nIncorrect value. Please try again! \n>>>Quantity values can only be positive or negative integers");
+                }
+            } while (!converted);
+            return quantity;
+        }
+
+		public static decimal RequestProductCost()
+		{
+            decimal cost = 0;
+			bool converted = false;
+
+			do
+			{
+				Console.Write(">> Cost: ");
+				string costValue = Console.ReadLine();
+                converted = Decimal.TryParse(costValue, out cost);
+				if (!converted)
+				{
+					Console.WriteLine("\nIncorrect value. Please try again! ");
+				}
+			} while (!converted);
+			return cost;
+		}
     }
 }
