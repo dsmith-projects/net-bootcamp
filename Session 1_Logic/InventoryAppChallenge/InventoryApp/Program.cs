@@ -119,21 +119,25 @@ namespace InventoryApp
 					switch (option)
 					{
 						case 1:
-							Console.WriteLine("LIST inventory items\nDisplays a list of all items in the inventory");
+							//Console.WriteLine("LIST inventory items\nDisplays a list of all items in the inventory");
                             ListInventory(); // this method should receive the file containing the inventory as a parameter
 							break;
 						case 2:
-							Console.WriteLine("ADD a new item to inventory\nAllows you to create a new item and add it to the inventory");
+                            Console.Clear();
+							Console.WriteLine("ADDing a new item to inventory\n");
                             AddItemToInventory();
 							break;
 						case 3:
+                            Console.Clear();
 							Console.WriteLine("MODIFY an item quantity\nLets you set the number of supplies for an item in the inventory");
+                            ModifyItemData();
 							break;
 						case 4:
 							Console.WriteLine("REMOVE an item from inventory\nDeletes all supplies of that items from the inventory");
 							break;
 						case 5:
-							Console.WriteLine("EXITING the application. Thank you!");
+                            Console.Clear();
+							Console.WriteLine("EXITING the application... Thank you!");
 							break;
 						case -1:
 							Console.WriteLine("TODO");
@@ -183,7 +187,7 @@ namespace InventoryApp
 					switch (option)
 					{
 						case 1:
-							Console.WriteLine("LIST inventory items\n");
+							//Console.WriteLine("LIST inventory items\n");
                             ListInventory();
 							break;
 						case 2:
@@ -193,7 +197,8 @@ namespace InventoryApp
 							Console.WriteLine("DISPLAY invoice\n");
 							break;
 						case 4:
-							Console.WriteLine("EXITING the application. Thank you!");
+							Console.Clear();
+							Console.WriteLine("EXITING the application... Thank you!");
 							break;
 						case -1:
 							Console.WriteLine("TODO");
@@ -223,8 +228,20 @@ namespace InventoryApp
 
         public static void ListInventory() 
         {
-            Console.WriteLine("Pending");
-            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+            Console.Clear();
+            string[] lines = File.ReadAllLines(@AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv");
+
+            foreach (var line in lines)
+            {
+                string[] lineDetails = line.Split(',');
+				foreach (var item in lineDetails)
+				{
+					Console.Write(item + "\t\t\t");
+				}
+                Console.WriteLine();
+            }
+            Console.ReadLine();
+			Console.Clear();
         }
 
         public static void AddItemToInventory() 
@@ -238,7 +255,7 @@ namespace InventoryApp
 
             Console.WriteLine("*** NEW ITEM ***");
             Console.WriteLine();
-            Console.WriteLine("Provide the following data: ");
+            Console.WriteLine("Provide data for the new item: ");
             Console.WriteLine();
             Console.Write(">> Product ID: ");
             productId = Console.ReadLine();
@@ -289,5 +306,32 @@ namespace InventoryApp
 			} while (!converted);
 			return cost;
 		}
+
+        public static void ModifyItemData() 
+        {
+            string productId = "";
+            string quantityValue = "";
+            int quantity = 0;
+            bool converted = false;
+
+            Console.WriteLine("Please provide the following data: \n");
+            Console.Write(">> Product ID: ");
+            productId = Console.ReadLine();
+
+            // look for the product. If it exists, ask for new quantity
+
+			do
+			{
+				Console.Write(">> Quantity: ");
+				quantityValue = Console.ReadLine();
+                converted = Int32.TryParse(quantityValue, out quantity);
+				if (!converted)
+				{
+					Console.WriteLine("\nIncorrect value. Please try again! ");
+				}
+			} while (!converted);
+
+            // update values in file
+        }
     }
 }
