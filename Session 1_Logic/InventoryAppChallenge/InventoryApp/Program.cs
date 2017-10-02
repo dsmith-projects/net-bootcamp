@@ -229,17 +229,41 @@ namespace InventoryApp
         public static void ListInventory() 
         {
             Console.Clear();
-            string[] lines = File.ReadAllLines(@AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv");
+            string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-            foreach (var line in lines)
+			if (!File.Exists(path))
+			{
+                Console.WriteLine("Inventory file does not exist.\nCreating a new empty inventory file.\nHit enter to continue.");
+                string[] fileHeader = { "PRODUCT_ID,NAME,COST,QUANTITY" };
+				File.WriteAllLines(path, fileHeader);
+			} else
             {
-                string[] lineDetails = line.Split(',');
-				foreach (var item in lineDetails)
-				{
-					Console.Write(item + "\t\t\t");
-				}
-                Console.WriteLine();
+                try
+                {
+                    string[] lines = File.ReadAllLines(path);
+
+                    if (lines.Length > 0)
+                    {
+                        foreach (string line in lines)
+                        {
+                            string[] lineDetails = line.Split(',');
+                            foreach (var item in lineDetails)
+                            {
+                                Console.Write(item + "\t\t\t");
+                            }
+                            Console.WriteLine();
+                        }
+                    } else
+                    {
+                        Console.WriteLine("Nothing to display. Empty inventory file.");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("The file could not be read. Please try again.");
+                }
             }
+
             Console.ReadLine();
 			Console.Clear();
         }
@@ -313,25 +337,69 @@ namespace InventoryApp
             string quantityValue = "";
             int quantity = 0;
             bool converted = false;
+            bool productFound = false;
 
-            Console.WriteLine("Please provide the following data: \n");
-            Console.Write(">> Product ID: ");
-            productId = Console.ReadLine();
+            string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-            // look for the product. If it exists, ask for new quantity
-
-			do
+			if (!File.Exists(path))
 			{
-				Console.Write(">> Quantity: ");
-				quantityValue = Console.ReadLine();
-                converted = Int32.TryParse(quantityValue, out quantity);
-				if (!converted)
-				{
-					Console.WriteLine("\nIncorrect value. Please try again! ");
-				}
-			} while (!converted);
+				Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
+			} else
+            {		
+                try
+                {
+                    string[] lines = File.ReadAllLines(path);
 
-            // update values in file
+                    if (lines.Length > 0) {
+						// verificar si producto existe en el inventario	
+
+						Console.WriteLine("Please provide the following data: \n");
+						Console.Write(">> Product ID: ");
+						productId = Console.ReadLine();
+
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            string line = lines[i];
+							string[] lineDetails = line.Split(',');
+
+							if (lineDetails[0] == productId)
+							{
+								do
+								{
+									Console.Write(">> Quantity: ");
+									quantityValue = Console.ReadLine();
+									converted = Int32.TryParse(quantityValue, out quantity);
+									if (!converted)
+									{
+										Console.WriteLine("\nIncorrect value. Please try again! ");
+									}
+								} while (!converted);
+
+                                string newLine = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + quantityValue;
+                                lines[i] = newLine;
+
+                                productFound = true;
+                                break;
+							} 
+                        }
+
+                        if (productFound)
+                        {
+                            File.WriteAllLines(path, lines);
+                        } else
+                        {
+                            Console.WriteLine("The product id you provided did not match any products in the inventory.");
+                        }
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("The file could not be read. Please try again.");
+                }
+            }
+			
         }
     }
 }
