@@ -9,7 +9,7 @@ namespace InventoryApp
     {
         public static void Main(string[] args)
         {
-			string defaultUsername = ConfigurationManager.AppSettings.Get("username");
+            string defaultUsername = ConfigurationManager.AppSettings.Get("username");
             string defaultPassword = ConfigurationManager.AppSettings.Get("password");
             bool locked = Properties.Settings.Default.Locked;
 
@@ -32,7 +32,7 @@ namespace InventoryApp
                         else
                         {
                             Console.WriteLine("\nAccess denied!\nThe application was locked because you reached the maximum number of attempts to enter the correct username and password.\nContact your system administrator!");
-							Properties.Settings.Default.Locked = true;
+                            Properties.Settings.Default.Locked = true;
                             Properties.Settings.Default.Save();
                         }
                     }
@@ -50,19 +50,20 @@ namespace InventoryApp
                 {
                     Console.WriteLine("Please try again! Make sure you start the app as a user or as the admin");
                 }
-            } else
+            }
+            else
             {
                 Console.WriteLine("Access denied. The application is locked due to too many attempts to enter an incorrect username or password. Contact your system administrator!");
             }
             //Console.ReadLine();
         }
 
-        public static bool AuthenticateAdminUser() 
+        public static bool AuthenticateAdminUser()
         {
             string username = "";
             string password = "";
-			const string DefaultUsername = "hola";
-			const string DefaultPassword = "mundo";
+            const string DefaultUsername = "hola";
+            const string DefaultPassword = "mundo";
 
             const int MaxNumAttempts = 3;
             int numAttempt = 0;
@@ -84,7 +85,7 @@ namespace InventoryApp
                     userVerified = true;
                     authenticated = true;
                 }
-                else 
+                else
                 {
                     if (numAttempt < 3)
                     {
@@ -106,56 +107,59 @@ namespace InventoryApp
             int option = 0;
             int exitValue = 5;
 
-			while (option != exitValue)
+            while (option != exitValue)
             {
                 DisplayAdminMenu();
 
                 Console.Write("\nChoose an option: ");
-				input = Console.ReadLine();
-				bool result = Int32.TryParse(input, out option);
+                input = Console.ReadLine();
+                bool result = Int32.TryParse(input, out option);
 
-				if (result)
-				{
-					switch (option)
-					{
-						case 1:
-							//Console.WriteLine("LIST inventory items\nDisplays a list of all items in the inventory");
-                            ListInventory(); // this method should receive the file containing the inventory as a parameter
-							break;
-						case 2:
+                if (result)
+                {
+                    switch (option)
+                    {
+                        case 1:
+                            //Console.WriteLine("LIST inventory items\nDisplays a list of all items in the inventory");
                             Console.Clear();
-							Console.WriteLine("ADDing a new item to inventory\n");
+                            ListInventory();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            //Console.WriteLine("ADDing a new item to inventory\n");
                             AddItemToInventory();
-							break;
-						case 3:
+                            break;
+                        case 3:
                             Console.Clear();
-							Console.WriteLine("MODIFY an item quantity\nLets you set the number of supplies for an item in the inventory");
+                            //Console.WriteLine("MODIFY an item quantity\n");
                             ModifyItemData();
-							break;
-						case 4:
-							Console.WriteLine("REMOVE an item from inventory\nDeletes all supplies of that items from the inventory");
-							break;
-						case 5:
+                            break;
+                        case 4:
                             Console.Clear();
-							Console.WriteLine("EXITING the application... Thank you!");
-							break;
-						case -1:
-							Console.WriteLine("TODO");
-							break;
-						default:
-							Console.WriteLine("TODO");
-							break;
-					}
-				}
-				else
-				{
-					Console.WriteLine("Invalid input. Please try again");
+                            //Console.WriteLine("REMOVE an item from inventory\nDeletes all supplies of that items from the inventory");
+                            RemoveItemFromInventory();
+                            break;
+                        case 5:
+                            Console.Clear();
+                            Console.WriteLine("EXITING the application... Thank you!");
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine(">>> Invalid number. Please try again!\n");
+                            break;
+                    }
+                }
+                else
+                {
+					Console.Clear();
+					Console.WriteLine(">>> Invalid input. Please try again!\n");
                 }
             }
 
         }
 
-        public static void DisplayAdminMenu() {
+        public static void DisplayAdminMenu()
+        {
             Console.WriteLine("**** MAIN MENU ****");
             Console.WriteLine();
             Console.WriteLine("1. LIST inventory items");
@@ -166,77 +170,77 @@ namespace InventoryApp
         }
 
 
-		public static void RunUserModule()
-		{
-			Console.Clear();
-
-			string input = "";
-			int option = 0;
-            int exitValue = 4;
-
-			while (option != exitValue)
-			{
-				DisplayUserMenu();
-
-				Console.Write("\nIngrese una opción: ");
-				input = Console.ReadLine();
-				bool result = Int32.TryParse(input, out option);
-
-				if (result)
-				{
-					switch (option)
-					{
-						case 1:
-							//Console.WriteLine("LIST inventory items\n");
-                            ListInventory();
-							break;
-						case 2:
-							Console.WriteLine("CREATE new invoice\n");
-							break;
-						case 3:
-							Console.WriteLine("DISPLAY invoice\n");
-							break;
-						case 4:
-							Console.Clear();
-							Console.WriteLine("EXITING the application... Thank you!");
-							break;
-						case -1:
-							Console.WriteLine("TODO");
-							break;
-						default:
-							Console.WriteLine("TODO");
-							break;
-					}
-				}
-				else
-				{
-					Console.WriteLine("Invalid input. Please try again");
-				}
-			}
-
-		}
-
-		public static void DisplayUserMenu()
-		{
-			Console.WriteLine("**** MAIN MENU ****");
-			Console.WriteLine();
-			Console.WriteLine("1. LIST inventory items");
-			Console.WriteLine("2. CREATE new invoice");
-			Console.WriteLine("3. DISPLAY invoice");
-			Console.WriteLine("4. EXIT application");
-		}
-
-        public static void ListInventory() 
+        public static void RunUserModule()
         {
             Console.Clear();
+
+            string input = "";
+            int option = 0;
+            int exitValue = 4;
+
+            while (option != exitValue)
+            {
+                DisplayUserMenu();
+
+                Console.Write("\nIngrese una opción: ");
+                input = Console.ReadLine();
+                bool result = Int32.TryParse(input, out option);
+
+                if (result)
+                {
+                    switch (option)
+                    {
+                        case 1:
+                            Console.Clear();
+                            ListInventory();
+                            break;
+                        case 2:
+                            Console.WriteLine("CREATE new invoice\n");
+                            break;
+                        case 3:
+                            Console.WriteLine("DISPLAY invoice\n");
+                            break;
+                        case 4:
+                            Console.Clear();
+                            Console.WriteLine("EXITING the application... Thank you!");
+                            break;
+                        case -1:
+                            Console.WriteLine("TODO");
+                            break;
+                        default:
+                            Console.WriteLine("TODO");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again");
+                }
+            }
+
+        }
+
+        public static void DisplayUserMenu()
+        {
+            Console.WriteLine("**** MAIN MENU ****");
+            Console.WriteLine();
+            Console.WriteLine("1. LIST inventory items");
+            Console.WriteLine("2. CREATE new invoice");
+            Console.WriteLine("3. DISPLAY invoice");
+            Console.WriteLine("4. EXIT application");
+        }
+
+        public static void ListInventory()
+        {
             string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-			if (!File.Exists(path))
-			{
+            if (!File.Exists(path))
+            {
                 Console.WriteLine("Inventory file does not exist.\nCreating a new empty inventory file.\nHit enter to continue.");
-                string[] fileHeader = { "PRODUCT_ID,NAME,COST,QUANTITY" };
-				File.WriteAllLines(path, fileHeader);
-			} else
+                string[] fileHeader = { "PROD_ID,NAME,COST,QUANTITY" };
+                File.WriteAllLines(path, fileHeader);
+            }
+            else
             {
                 try
                 {
@@ -244,16 +248,18 @@ namespace InventoryApp
 
                     if (lines.Length > 0)
                     {
+                        Console.WriteLine("**** INVENTORY ****\n");
                         foreach (string line in lines)
                         {
                             string[] lineDetails = line.Split(',');
                             foreach (var item in lineDetails)
                             {
-                                Console.Write(item + "\t\t\t");
+                                Console.Write(item + "\t\t");
                             }
                             Console.WriteLine();
                         }
-                    } else
+                    }
+                    else
                     {
                         Console.WriteLine("Nothing to display. Empty inventory file.");
                     }
@@ -264,11 +270,12 @@ namespace InventoryApp
                 }
             }
 
+            Console.WriteLine("\nHit ENTER to continue\n");
             Console.ReadLine();
-			Console.Clear();
+            Console.Clear();
         }
 
-        public static void AddItemToInventory() 
+        public static void AddItemToInventory()
         {
             string inventoryFilePath = AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
@@ -277,7 +284,7 @@ namespace InventoryApp
             decimal cost = 0;
             int quantity = 0;
 
-            Console.WriteLine("*** NEW ITEM ***");
+            Console.WriteLine("**** NEW ITEM ****");
             Console.WriteLine();
             Console.WriteLine("Provide data for the new item: ");
             Console.WriteLine();
@@ -290,13 +297,14 @@ namespace InventoryApp
 
             // I must include a try/catch block for the following section
             StringBuilder newLine = new StringBuilder();
-			newLine.AppendLine(productId + "," + productName + "," + cost + "," + quantity);
+            newLine.AppendLine(productId + "," + productName + "," + cost + "," + quantity);
             File.AppendAllText(inventoryFilePath, newLine.ToString());
             Console.Clear();
             Console.WriteLine(">>> Product item SUCCESSFULLY added to the inventory\n");
         }
 
-        public static int RequestProductQuantity() {
+        public static int RequestProductQuantity()
+        {
             int quantity = 0;
             bool converted = false;
 
@@ -304,7 +312,7 @@ namespace InventoryApp
             {
                 Console.Write(">> Available Quantity: ");
                 string quantityValue = Console.ReadLine();
-				converted = Int32.TryParse(quantityValue, out quantity);
+                converted = Int32.TryParse(quantityValue, out quantity);
                 if (!converted)
                 {
                     Console.WriteLine("\nIncorrect value. Please try again! \n>>>Quantity values can only be positive or negative integers");
@@ -313,25 +321,25 @@ namespace InventoryApp
             return quantity;
         }
 
-		public static decimal RequestProductCost()
-		{
+        public static decimal RequestProductCost()
+        {
             decimal cost = 0;
-			bool converted = false;
+            bool converted = false;
 
-			do
-			{
-				Console.Write(">> Cost: ");
-				string costValue = Console.ReadLine();
+            do
+            {
+                Console.Write(">> Cost: ");
+                string costValue = Console.ReadLine();
                 converted = Decimal.TryParse(costValue, out cost);
-				if (!converted)
-				{
-					Console.WriteLine("\nIncorrect value. Please try again! ");
-				}
-			} while (!converted);
-			return cost;
-		}
+                if (!converted)
+                {
+                    Console.WriteLine("\nIncorrect value. Please try again! ");
+                }
+            } while (!converted);
+            return cost;
+        }
 
-        public static void ModifyItemData() 
+        public static void ModifyItemData()
         {
             string productId = "";
             string quantityValue = "";
@@ -341,65 +349,126 @@ namespace InventoryApp
 
             string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-			if (!File.Exists(path))
-			{
-				Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
-			} else
-            {		
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
+            }
+            else
+            {
                 try
                 {
                     string[] lines = File.ReadAllLines(path);
 
-                    if (lines.Length > 0) {
-						// verificar si producto existe en el inventario	
-
-						Console.WriteLine("Please provide the following data: \n");
-						Console.Write(">> Product ID: ");
-						productId = Console.ReadLine();
+                    if (lines.Length > 0)
+                    {
+                        Console.WriteLine("**** MODIFY ITEM QUANTITY ***\n");
+                        Console.WriteLine("Please provide the following data: \n");
+                        Console.Write(">> Product ID: ");
+                        productId = Console.ReadLine();
 
                         for (int i = 0; i < lines.Length; i++)
                         {
                             string line = lines[i];
-							string[] lineDetails = line.Split(',');
+                            string[] lineDetails = line.Split(',');
 
-							if (lineDetails[0] == productId)
-							{
-								do
-								{
-									Console.Write(">> Quantity: ");
-									quantityValue = Console.ReadLine();
-									converted = Int32.TryParse(quantityValue, out quantity);
-									if (!converted)
-									{
-										Console.WriteLine("\nIncorrect value. Please try again! ");
-									}
-								} while (!converted);
+                            if (lineDetails[0] == productId)
+                            {
+                                do
+                                {
+                                    Console.Write(">> Quantity: ");
+                                    quantityValue = Console.ReadLine();
+                                    converted = Int32.TryParse(quantityValue, out quantity);
+                                    if (!converted)
+                                    {
+                                        Console.WriteLine("\nIncorrect value. Please try again! ");
+                                    }
+                                } while (!converted);
 
                                 string newLine = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + quantityValue;
                                 lines[i] = newLine;
 
                                 productFound = true;
                                 break;
-							} 
+                            }
                         }
 
                         if (productFound)
                         {
                             File.WriteAllLines(path, lines);
-                        } else
+                            Console.Clear();
+                            Console.WriteLine(">>> Product quantity SUCCESSFULLY updated.\n");
+                        }
+                        else
                         {
-                            Console.WriteLine("The product id you provided did not match any products in the inventory.");
+                            Console.Clear();
+                            Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
                         }
                     }
-
-
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("The file could not be read. Please try again.");
                 }
             }
-			
+        }
+
+        public static void RemoveItemFromInventory()
+        {
+            string productId = "";
+            bool productFound = false;
+
+            string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
+            }
+            else
+            {
+                try
+                {
+                    string[] lines = File.ReadAllLines(path);
+                    string newLines = "";
+
+                    if (lines.Length > 0)
+                    {
+                        Console.WriteLine("**** DELETE ITEM ***\n");
+                        Console.WriteLine("Please provide the following data: \n");
+                        Console.Write(">> Product ID: ");
+                        productId = Console.ReadLine();
+
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            string line = lines[i];
+                            string[] lineDetails = line.Split(',');
+                            //Console.WriteLine("lineDetails[0] != productId: {0}", (lineDetails[0] != productId));
+                            if (lineDetails[0] != productId)
+                            {
+                                newLines += line + Environment.NewLine;
+                            }
+                            else {
+								productFound = true;
+                            }
+                        }
+                        //Console.WriteLine("productFound: " + productFound);
+                        if (productFound)
+                        {
+                            File.WriteAllText(path, newLines);
+                            Console.Clear();
+                            Console.WriteLine(">>> Product SUCCESSFULLY deleted.\n");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("The file could not be read. Please try again.");
+                }
+            }
         }
     }
 }
