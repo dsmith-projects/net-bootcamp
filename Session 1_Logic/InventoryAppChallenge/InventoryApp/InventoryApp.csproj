@@ -50,5 +50,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InventoryApp.FileHandler\InventoryApp.FileHandler.csproj">
+      <Project>{48ccd758-1ad7-49d5-a89e-4b683e22769f}</Project>
+      <Name>InventoryApp.FileHandler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
