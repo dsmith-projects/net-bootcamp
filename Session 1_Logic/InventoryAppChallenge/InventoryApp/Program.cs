@@ -151,8 +151,8 @@ namespace InventoryApp
                 }
                 else
                 {
-					Console.Clear();
-					Console.WriteLine(">>> Invalid input. Please try again!\n");
+                    Console.Clear();
+                    Console.WriteLine(">>> Invalid input. Please try again!\n");
                 }
             }
 
@@ -177,12 +177,14 @@ namespace InventoryApp
             string input = "";
             int option = 0;
             int exitValue = 4;
+            int counter = 1000;
+            decimal grandTotal = 0;
 
             while (option != exitValue)
             {
                 DisplayUserMenu();
 
-                Console.Write("\nIngrese una opción: ");
+                Console.Write("\nChoose an option: ");
                 input = Console.ReadLine();
                 bool result = Int32.TryParse(input, out option);
 
@@ -197,15 +199,16 @@ namespace InventoryApp
                         case 2:
                             //Console.WriteLine("CREATE new invoice\n");
                             Console.Clear();
-                            CreateNewInvoice();
+                            grandTotal += CreateNewInvoice(counter++);
                             break;
                         case 3:
                             //Console.WriteLine("DISPLAY invoice\n");
                             Console.Clear();
+                            DisplayInvoicesReport(grandTotal, (counter - 1000));
                             break;
                         case 4:
-							Console.Clear();
-							Console.WriteLine("EXITING the application... Thank you!");
+                            Console.Clear();
+                            Console.WriteLine("EXITING the application... Thank you!");
                             break;
                         default:
                             Console.WriteLine("TODO");
@@ -214,8 +217,8 @@ namespace InventoryApp
                 }
                 else
                 {
-					Console.Clear();
-					Console.WriteLine(">>> Invalid input. Please try again!\n");
+                    Console.Clear();
+                    Console.WriteLine(">>> Invalid input. Please try again!\n");
                 }
             }
 
@@ -449,8 +452,9 @@ namespace InventoryApp
                             {
                                 newLines += line + Environment.NewLine;
                             }
-                            else {
-								productFound = true;
+                            else
+                            {
+                                productFound = true;
                             }
                         }
                         //Console.WriteLine("productFound: " + productFound);
@@ -474,98 +478,148 @@ namespace InventoryApp
             }
         }
 
-		private static void CreateNewInvoice()
-		{
-			string productId = "";
-			string quantityValue = "";
-			int quantity = 0;
+        private static decimal CreateNewInvoice(int counter)
+        {
+            string productId = "";
+            string quantityValue = "";
+            int quantity = 0;
             int currentQuantity = 0;
-			bool converted = false;
-			bool productFound = false;
+            bool converted = false;
+            bool productFound = false;
             bool addMore = false;
+            string option = "";
+            string invoiceData = "";
+            decimal total = 0;
 
-			string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-			if (!File.Exists(path))
-			{
-				Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
-			}
-			else
-			{
-				try
-				{
-					string[] lines = File.ReadAllLines(path);
-					string newLines = "";
+            string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
 
-					if (lines.Length > 0)
-					{
-						Console.WriteLine("**** ADD ITEMS TO INVOICE ***\n");
-						Console.WriteLine("Please provide the following data: \n");
-						Console.Write(">> Product ID: ");
-						productId = Console.ReadLine();
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
+            }
+            else
+            {
+                //try
+                //{
+                string[] lines = File.ReadAllLines(path);
+                Console.WriteLine("**** ADD ITEMS TO INVOICE ***\n");
 
-						for (int i = 0; i < lines.Length; i++)
-						{
-							string line = lines[i];
-							string[] lineDetails = line.Split(',');
-							
-							if (lineDetails[0] == productId)
-							{
-								currentQuantity = Int32.Parse(lineDetails[3]);
+                do
+                {
+                    addMore = false;
+
+                    if (lines.Length > 0)
+                    {
+                        Console.WriteLine("Please provide the following data: \n");
+                        Console.Write(">> Product ID: ");
+                        productId = Console.ReadLine();
+
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            string line = lines[i];
+                            string[] lineDetails = line.Split(',');
+
+                            if (lineDetails[0] == productId)
+                            {
+                                currentQuantity = Int32.Parse(lineDetails[3]);
 
                                 do
-								{
-									Console.Write(">> Quantity: ");
-									quantityValue = Console.ReadLine();
-									converted = Int32.TryParse(quantityValue, out quantity);
-									if (!converted)
-									{
-										Console.WriteLine("\nIncorrect value. Please try again! ");
-									}
+                                {
+                                    Console.Write(">> Quantity: ");
+                                    quantityValue = Console.ReadLine();
+                                    converted = Int32.TryParse(quantityValue, out quantity);
+                                    if (!converted)
+                                    {
+                                        Console.WriteLine("\nIncorrect value. Please try again! ");
+                                    }
                                     if (quantity > currentQuantity)
-									{
-										Console.WriteLine("\nThere are not enough supplies to fulfill your request!\n");										
-									}
-								} while (!converted || (quantity > currentQuantity));
+                                    {
+                                        Console.WriteLine("\nThere are not enough supplies to fulfill your request!\n");
+                                    }
+                                } while (!converted || (quantity > currentQuantity));
 
                                 currentQuantity -= quantity;
 
-								string newLine = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + currentQuantity.ToString();
-								lines[i] = newLine;
+                                lines[i] = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + currentQuantity.ToString();
 
-								productFound = true;
+                                productFound = true;
 
-                                // add product and quantity to invoice
-                                // ask again if user wants to add another item to invoice
-								break;
-							}
-						}
-						
-						if (productFound)
-						{
-							File.WriteAllText(path, newLines);
-							Console.Clear();
-							Console.WriteLine(">>> Product SUCCESSFULLY added to invoice.\n");
-						}
-						else
-						{
-							Console.Clear();
-							Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
-						}
-					} else
+                                // add product and quantity to invoice and total
+                                invoiceData += productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + quantityValue + "," + ((Decimal.Parse(lineDetails[2]) * quantity).ToString()) + Environment.NewLine;
+                                total += Decimal.Parse(lineDetails[2]) * quantity;
+                                break;
+                            }
+                        }
+
+                        if (productFound)
+                        {
+                            File.WriteAllLines(path, lines);
+                            Console.Clear();
+                            Console.WriteLine(">>> Product SUCCESSFULLY added to invoice.\n");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
+                        }
+                    }
+                    else
                     {
                         Console.WriteLine("No items in inventory file.\n");
                     }
-				}
-				catch (Exception)
-				{
-					Console.WriteLine("The file could not be read. Please try again.");
-				}
-			}
 
-		}
+                    do
+                    {
+                        Console.WriteLine("Do you want to add more items to the invoice?");
+                        Console.Write("Type \'yes\' [y] or \'no\' [n]: ");
+                        option = Console.ReadLine();
+                        Console.WriteLine();
+                    } while (option.ToLower() != "yes" && option.ToLower() != "y" && option.ToLower() != "no" && option.ToLower() != "n");
 
+                    if (option.ToLower() == "yes" || option.ToLower() == "y")
+                    {
+                        addMore = true;
+                    }
+                    else
+                    {
+                        AddItemToInvoice(invoiceData, total, counter);
+                        Console.Clear();
+                    }
 
+                } while (addMore);
+            }
+            return total;
+        }
+
+        public static void AddItemToInvoice(string invoiceData, decimal total, int counter)
+        {
+            string invoicesPath = AppDomain.CurrentDomain.BaseDirectory + "Invoices/";
+            string newInvoicePath = invoicesPath + "Invoice" + counter.ToString() + ".csv";
+            string[] fileHeader = { "PROD_ID,NAME,PRICE,QUANTITY,COST" };
+            string totalLine = "*TOTAL:*,-----,-----,-----," + total.ToString();
+
+            if (!Directory.Exists(invoicesPath))
+            {
+                Directory.CreateDirectory(invoicesPath);
+            }
+
+			File.WriteAllLines(newInvoicePath, fileHeader);
+			File.AppendAllText(newInvoicePath, invoiceData);
+			File.AppendAllText(newInvoicePath, totalLine);
+			Console.Clear();
+			Console.WriteLine(">>> Invoice created");
+        }
+
+        public static void DisplayInvoicesReport(decimal grandTotal, int invoicesCounter)
+        {
+            Console.Clear();
+            Console.WriteLine("Number of invoices created: {0}", invoicesCounter);
+            Console.WriteLine("Grand total for all invoices: {0}", grandTotal);
+            Console.WriteLine("\nPress any key to continue");
+            Console.ReadLine();
+            Console.Clear();
+        }
 
 	}
 }
