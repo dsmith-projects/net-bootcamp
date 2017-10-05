@@ -22,20 +22,11 @@ namespace DiagonalDifference
                 diagonal2 += a[i][j];
 			}
 
-            //Console.WriteLine("Diagonal 1: " + diagonal1);
-            //Console.WriteLine("Diagonal 2: " + diagonal2);
-			int resultado = diagonal1 - diagonal2;
+			int resultado = Math.Abs(diagonal1 - diagonal2);
 
-			if (resultado < 0)
-			{
-				//Console.WriteLine("Resultado: " + resultado * -1);
-                Console.WriteLine(resultado * -1);
-			}
-			else
-			{
-				//Console.WriteLine("Resultado: " + resultado);
-                Console.WriteLine(resultado);
-			}
+            Console.WriteLine(resultado);
+
+			
         }
     }
 }
