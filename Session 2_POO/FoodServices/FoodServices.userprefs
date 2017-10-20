@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{C9FB9DA7-4E92-4ABF-A0A3-670EB65AA223}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LaDonaRest/ConcreteDecorator/TwoSides.cs">
+    <Files>
+      <File FileName="LaDonaRest/Program.cs" Line="90" Column="43" />
+      <File FileName="LaDonaRest/Component/Casado.cs" Line="8" Column="39" />
+      <File FileName="LaDonaRest/ConcreteComponent/BasicCasado.cs" Line="10" Column="60" />
+      <File FileName="LaDonaRest/ConcreteComponent/CompleteCasado.cs" Line="15" Column="22" />
+      <File FileName="LaDonaRest/Decorator/CasadoDecorator.cs" Line="14" Column="52" />
+      <File FileName="LaDonaRest/ConcreteDecorator/Dessert.cs" Line="13" Column="80" />
+      <File FileName="LaDonaRest/ConcreteDecorator/OneSide.cs" Line="1" Column="1" />
+      <File FileName="LaDonaRest/ConcreteDecorator/TwoSides.cs" Line="15" Column="6" />
+      <File FileName="LaDonaRest/ConcreteDecorator/ThreeSides.cs" Line="13" Column="80" />
+      <File FileName="LaDonaRest/ConcreteDecorator/Starter.cs" Line="13" Column="80" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.LaDonaRest PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
