@@ -7,7 +7,7 @@ namespace LaDonaRest.ConcreteComponent
     {
         public BasicCasado()
         {
-            Description = "CASADO BÁSICO >> *** pequeño ***\n\t* Refresco\n\t* Arroz\n\t* Frijoles\n\t* Carne\n\t* Ensalada\n";
+            Description = "CASADO BÁSICO >> *** pequeño ***\n\n\t* Refresco\n\t* Arroz\n\t* Frijoles\n\t* Carne\n\t* Ensalada\n";
         }
 
         public override double GetCost()
