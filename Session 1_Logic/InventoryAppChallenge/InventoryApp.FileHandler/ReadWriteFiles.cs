@@ -15,9 +15,7 @@ namespace InventoryApp.FileHandler
 
             if (!File.Exists(path))
             {
-                Console.WriteLine("Inventory file does not exist.\nCreating a new empty inventory file.\nHit enter to continue.");
-                string[] fileHeader = { "PROD_ID,NAME,COST,QUANTITY" };
-                File.WriteAllLines(path, fileHeader);
+                CreateNewInventoryFile(path);
             }
             else
             {
@@ -28,15 +26,7 @@ namespace InventoryApp.FileHandler
                     if (lines.Length > 0)
                     {
                         Console.WriteLine("**** INVENTORY ****\n");
-                        foreach (string line in lines)
-                        {
-                            string[] lineDetails = line.Split(',');
-                            foreach (var item in lineDetails)
-                            {
-                                Console.Write(item + "\t\t");
-                            }
-                            Console.WriteLine();
-                        }
+                        ReadLines(lines);
                     }
                     else
                     {
@@ -54,108 +44,108 @@ namespace InventoryApp.FileHandler
             Console.Clear();
         }
 
-        public static void AddItemToInventory()
+        private static void ReadLines(string[] lines)
         {
-            string inventoryFilePath = AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
-
-            string productId = "";
-            string productName = "";
-            decimal cost = 0;
-            int quantity = 0;
-
-            Console.WriteLine("**** NEW ITEM ****");
-            Console.WriteLine();
-            Console.WriteLine("Provide data for the new item: ");
-            Console.WriteLine();
-            Console.Write(">> Product ID: ");
-            productId = Console.ReadLine();
-            Console.Write(">> Name: ");
-            productName = Console.ReadLine();
-            cost = RequestProductCost();
-            quantity = RequestProductQuantity();
-
-            // I must include a try/catch block for the following section
-            string newLine = "";
-            newLine += productId + "," + productName + "," + cost + "," + quantity;
-            File.AppendAllText(inventoryFilePath, newLine.ToString());
-            Console.Clear();
-            Console.WriteLine(">>> Product item SUCCESSFULLY added to the inventory\n");
-        }
-
-        public static void ModifyItemData()
-        {
-            string productId = "";
-            string quantityValue = "";
-            int quantity = 0;
-            bool converted = false;
-            bool productFound = false;
-
-            string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
-
-            if (!File.Exists(path))
+            foreach (string line in lines)
             {
-                Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
-            }
-            else
-            {
-                try
-                {
-                    string[] lines = File.ReadAllLines(path);
+                PrintLine(line);
 
-                    if (lines.Length > 0)
-                    {
-                        Console.WriteLine("**** MODIFY ITEM QUANTITY ***\n");
-                        Console.WriteLine("Please provide the following data: \n");
-                        Console.Write(">> Product ID: ");
-                        productId = Console.ReadLine();
-
-                        for (int i = 0; i < lines.Length; i++)
-                        {
-                            string line = lines[i];
-                            string[] lineDetails = line.Split(',');
-
-                            if (lineDetails[0] == productId)
-                            {
-                                do
-                                {
-                                    Console.Write(">> Quantity: ");
-                                    quantityValue = Console.ReadLine();
-                                    converted = Int32.TryParse(quantityValue, out quantity);
-                                    if (!converted)
-                                    {
-                                        Console.WriteLine("\nIncorrect value. Please try again! ");
-                                    }
-                                } while (!converted);
-
-                                quantity += Int32.Parse(lineDetails[3]);
-
-                                string newLine = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + quantity.ToString();
-                                lines[i] = newLine;
-
-                                productFound = true;
-                                break;
-                            }
-                        }
-
-                        if (productFound)
-                        {
-                            File.WriteAllLines(path, lines);
-                            Console.Clear();
-                            Console.WriteLine(">>> Product quantity SUCCESSFULLY updated.\n");
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("The file could not be read. Please try again.");
-                }
             }
         }
+
+        private static void PrintLine(string line)
+        {
+            string[] lineDetails = line.Split(',');
+            foreach (var item in lineDetails)
+            {
+                Console.Write(item + "\t\t");
+            }
+            Console.WriteLine();
+        }
+
+        private static void CreateNewInventoryFile(string path)
+        {
+            Console.WriteLine("Inventory file does not exist.\nCreating a new empty inventory file.\nHit enter to continue.");
+            string[] fileHeader = { "PROD_ID,NAME,COST,QUANTITY" };
+            File.WriteAllLines(path, fileHeader);
+        }
+
+
+
+        //public static void ModifyItemData()
+        //{
+        //    string productId = "";
+        //    string quantityValue = "";
+        //    int quantity = 0;
+        //    bool converted = false;
+        //    bool productFound = false;
+
+        //    string path = @AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
+
+        //    if (!File.Exists(path))
+        //    {
+        //        Console.WriteLine("Inventory file does not exist.\nTo create a new file choose option 1 from the menu.");
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            string[] lines = File.ReadAllLines(path);
+
+        //            if (lines.Length > 0)
+        //            {
+        //                Console.WriteLine("**** MODIFY ITEM QUANTITY ***\n");
+        //                Console.WriteLine("Please provide the following data: \n");
+        //                Console.Write(">> Product ID: ");
+        //                productId = Console.ReadLine();
+
+        //                for (int i = 0; i < lines.Length; i++)
+        //                {
+        //                    string line = lines[i];
+        //                    string[] lineDetails = line.Split(',');
+
+        //                    if (lineDetails[0] == productId)
+        //                    {
+        //                        do
+        //                        {
+        //                            Console.Write(">> Quantity: ");
+        //                            quantityValue = Console.ReadLine();
+        //                            converted = Int32.TryParse(quantityValue, out quantity);
+        //                            if (!converted)
+        //                            {
+        //                                Console.WriteLine("\nIncorrect value. Please try again! ");
+        //                            }
+        //                        } while (!converted);
+
+        //                        quantity += Int32.Parse(lineDetails[3]);
+
+        //                        string newLine = productId + "," + lineDetails[1] + "," + lineDetails[2] + "," + quantity.ToString();
+        //                        lines[i] = newLine;
+
+        //                        productFound = true;
+        //                        break;
+        //                    }
+        //                }
+
+        //                if (productFound)
+        //                {
+        //                    File.WriteAllLines(path, lines);
+        //                    Console.Clear();
+        //                    Console.WriteLine(">>> Product quantity SUCCESSFULLY updated.\n");
+        //                }
+        //                else
+        //                {
+        //                    Console.Clear();
+        //                    Console.WriteLine(">>> The product id you provided did not match any products in the inventory.\n");
+        //                }
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            Console.WriteLine("The file could not be read. Please try again.");
+        //        }
+        //    }
+        //}
 
         public static void RemoveItemFromInventory()
         {

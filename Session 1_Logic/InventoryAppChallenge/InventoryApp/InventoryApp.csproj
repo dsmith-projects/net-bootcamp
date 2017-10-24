@@ -41,6 +41,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="AuthenticateAdmin.cs" />
+    <Compile Include="AdminModule.cs" />
+    <Compile Include="UserModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
