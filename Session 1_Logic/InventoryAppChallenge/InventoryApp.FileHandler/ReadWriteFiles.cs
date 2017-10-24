@@ -75,8 +75,8 @@ namespace InventoryApp.FileHandler
             quantity = RequestProductQuantity();
 
             // I must include a try/catch block for the following section
-            StringBuilder newLine = new StringBuilder();
-            newLine.AppendLine(productId + "," + productName + "," + cost + "," + quantity);
+            string newLine = "";
+            newLine += productId + "," + productName + "," + cost + "," + quantity;
             File.AppendAllText(inventoryFilePath, newLine.ToString());
             Console.Clear();
             Console.WriteLine(">>> Product item SUCCESSFULLY added to the inventory\n");

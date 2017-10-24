@@ -63,8 +63,11 @@ namespace InventoryApp
         {
             string username = "";
             string password = "";
-            const string DefaultUsername = "hola";
-            const string DefaultPassword = "mundo";
+            //const string DefaultUsername = "hola";
+            //const string DefaultPassword = "mundo";
+
+            string defaultUsername = ConfigurationManager.AppSettings.Get("username");
+            string defaultPassword = ConfigurationManager.AppSettings.Get("password");
 
             const int MaxNumAttempts = 3;
             int numAttempt = 0;
@@ -81,7 +84,7 @@ namespace InventoryApp
                 numAttempt++;
                 //Console.WriteLine("Username: {0} - Password: {1}", username, password);
                 //Console.WriteLine("DefaultUsername: {0} - DefaultPassword: {1}", DefaultUsername, DefaultPassword);
-                if (username.Equals(DefaultUsername) && password.Equals(DefaultPassword))
+                if (username.Equals(defaultUsername) && password.Equals(defaultPassword))
                 {
                     userVerified = true;
                     authenticated = true;
@@ -212,7 +215,8 @@ namespace InventoryApp
                             Console.WriteLine("EXITING the application... Thank you!");
                             break;
                         default:
-                            Console.WriteLine("TODO");
+                            Console.Clear();
+                            Console.WriteLine(">>> Invalid input. Please try again!\n");
                             break;
                     }
                 }
