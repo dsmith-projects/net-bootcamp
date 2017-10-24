@@ -10,8 +10,7 @@ namespace InventoryApp
     {
         public static void Main(string[] args)
         {
-            string defaultUsername = ConfigurationManager.AppSettings.Get("username");
-            string defaultPassword = ConfigurationManager.AppSettings.Get("password");
+            // Variable that verifies whether the app has been locked after multiple attempts with the wrong credentials
             bool locked = Properties.Settings.Default.Locked;
 
             if (!locked)
