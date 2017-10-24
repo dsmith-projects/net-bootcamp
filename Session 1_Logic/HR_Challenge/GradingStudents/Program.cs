@@ -6,40 +6,27 @@ namespace GradingStudents
     {
 		
         static int MultiploDe5MasCercano(int n) { // n = 42 (5*8)= 40
-            int multiploDe5 = 1;
-            int i = 0;
-            while(multiploDe5 < n) {
-                multiploDe5 = 5 * i;
-                i++;
-            }
-            //Console.WriteLine("MultiploDe5MasCercano: "+ multiploDe5);
+            int multiplicidad = 5;
+            int cociente = (n / multiplicidad);
+            int multiploDe5 = (cociente * multiplicidad) + multiplicidad; ;
+            //Console.WriteLine("MultiploDe5MasCercano: " + multiploDe5);
             return multiploDe5;
         }
 
-        static int[] Solve(int[] grades)
+        static void Solve(ref int[] grades)
 		{
             int multiploDe5MasCercano = 0;
-            int[] result = new int[grades.Length];
             for (int i = 0; i < grades.Length; i++)
             {
-                if (grades[i] < 38)
-                {
-                    result[i] = grades[i];
-                }
-                else
+                if (grades[i] >= 38)
                 {
                     multiploDe5MasCercano = MultiploDe5MasCercano(grades[i]);
                     if (multiploDe5MasCercano - grades[i] < 3)
                     {
-                        result[i] = multiploDe5MasCercano;
-                    }
-                    else
-                    {
-                        result[i] = grades[i];
+                        grades[i] = multiploDe5MasCercano;
                     }
                 }
             }
-            return result;
         }
 
         public static void Main(string[] args)
@@ -50,8 +37,12 @@ namespace GradingStudents
             {
                 grades[grades_i] = Convert.ToInt32(Console.ReadLine());
             }
-            int[] result = Solve(grades);
-            Console.WriteLine(String.Join("\n", result));
+            Solve(ref grades);
+			for (int grades_i = 0; grades_i < n; grades_i++)
+			{
+				Console.WriteLine(grades[grades_i]); 
+			}
+
         }
     }
 }
