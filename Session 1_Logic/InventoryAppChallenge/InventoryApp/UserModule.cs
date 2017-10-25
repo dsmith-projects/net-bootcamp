@@ -1,5 +1,6 @@
 ﻿using System;
 using InventoryApp.FileHandler;
+using InventoryApp.FileHandler.Invoices;
 
 namespace InventoryApp
 {
@@ -53,7 +54,7 @@ namespace InventoryApp
                         case 2:
                             //Console.WriteLine("CREATE new invoice\n");
                             Console.Clear();
-                            grandTotal += ReadWriteFiles.CreateNewInvoice(counter++);
+                            grandTotal += NewInvoice.CreateNewInvoice(counter++);
                             break;
                         case 3:
                             //Console.WriteLine("DISPLAY invoice\n");

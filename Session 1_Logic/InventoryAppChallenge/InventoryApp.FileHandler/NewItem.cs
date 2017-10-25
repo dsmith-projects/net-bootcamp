@@ -3,26 +3,16 @@ using System.IO;
 
 namespace InventoryApp.FileHandler
 {
-    public class NewItem
+    public static class NewItem
     {
 
-        string inventoryFilePath;
-        string productId;
-        string productName;
-        decimal cost;
-        int quantity;
+        static string inventoryFilePath = AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
+        static string productId = "";
+        static string productName = "";
+        static decimal cost = 0;
+        static int quantity = 0;
 
-        public NewItem()
-        {
-
-            this.inventoryFilePath = AppDomain.CurrentDomain.BaseDirectory + "InventoryFile.csv";
-            this.productId = "";
-            this.productName = "";
-            this.cost = 0;
-            this.quantity = 0;
-        }
-
-        public void GetItemData()
+        public static void GetItemData()
         {
             Console.WriteLine("**** NEW ITEM ****");
             Console.WriteLine();
@@ -39,13 +29,13 @@ namespace InventoryApp.FileHandler
             Console.WriteLine(">>> Product item SUCCESSFULLY added to the inventory\n");
         }
 
-        public string ReadProductId()
+        public static string ReadProductId()
         {
             Console.Write(">> Product ID: ");
             return Console.ReadLine();
         }
 
-        public string ReadProductName()
+        public static string ReadProductName()
         {
             Console.Write(">> Name: ");
             return Console.ReadLine();
@@ -87,7 +77,7 @@ namespace InventoryApp.FileHandler
             return cost;
         }
 
-        public void AddItemToInventory(string productId, string productName, decimal cost, int quantity)
+        public static void AddItemToInventory(string productId, string productName, decimal cost, int quantity)
         {
             string newLine = "";
             newLine += productId + "," + productName + "," + cost + "," + quantity;

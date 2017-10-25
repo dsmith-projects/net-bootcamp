@@ -44,6 +44,7 @@
     <Compile Include="ReadWriteFiles.cs" />
     <Compile Include="NewItem.cs" />
     <Compile Include="ModifyItem.cs" />
+    <Compile Include="RemoveItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

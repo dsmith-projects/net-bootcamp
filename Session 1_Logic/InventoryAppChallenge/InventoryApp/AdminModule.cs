@@ -50,16 +50,15 @@ namespace InventoryApp
                             break;
                         case 2:
                             Console.Clear();
-                            NewItem newItem = new NewItem();
-                            newItem.GetItemData();
+                            NewItem.GetItemData();
                             break;
                         case 3:
                             Console.Clear();
-                            ReadWriteFiles.ModifyItemData();
+                            ModifyItem.ModifyItemData();
                             break;
                         case 4:
                             Console.Clear();
-                            ReadWriteFiles.RemoveItemFromInventory();
+                            RemoveItem.RemoveItemFromInventory();
                             break;
                         case 5:
                             Console.Clear();
