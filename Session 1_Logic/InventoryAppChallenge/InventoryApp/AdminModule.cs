@@ -46,7 +46,7 @@ namespace InventoryApp
                     {
                         case 1:
                             Console.Clear();
-                            ReadWriteFiles.ListInventory();
+                            DisplayInventory.ListInventory();
                             break;
                         case 2:
                             Console.Clear();

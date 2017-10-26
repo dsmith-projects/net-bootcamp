@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadWriteFiles.cs" />
+    <Compile Include="DisplayInventory.cs" />
     <Compile Include="NewItem.cs" />
     <Compile Include="ModifyItem.cs" />
     <Compile Include="RemoveItem.cs" />
