@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryAppDBView;
+using InventoryAppDBModelLogic;
 
 namespace InventoryAppWithDB
 {
@@ -11,6 +13,10 @@ namespace InventoryAppWithDB
     {
         static void Main(string[] args)
         {
+
+			AuthenticateAdmin authAdmin = new AuthenticateAdmin();
+
+
 			using (var db = new InventoryDBContext())
 			{
 				var product1 = new Product { Product_name = "cafe1820", Price = 1800, Avail_quantity = 250, Category = "Bebidas Calientes" };
