@@ -40,6 +40,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="AuthenticateAdmin.cs" />
+    <Compile Include="AdminModule.cs" />
+    <Compile Include="UserModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -57,6 +60,10 @@
     <ProjectReference Include="..\InventoryApp.FileHandler\InventoryApp.FileHandler.csproj">
       <Project>{48ccd758-1ad7-49d5-a89e-4b683e22769f}</Project>
       <Name>InventoryApp.FileHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryApp.FileHandler.Invoices\InventoryApp.FileHandler.Invoices.csproj">
+      <Project>{E5E2CB5A-3A7C-418A-8A80-3EA89DEA0345}</Project>
+      <Name>InventoryApp.FileHandler.Invoices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
