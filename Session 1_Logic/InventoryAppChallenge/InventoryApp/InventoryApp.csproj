@@ -49,6 +49,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="InventoryApp.csproj" />
+    <None Include="InventoryApp.csproj.user" />
+    <None Include="Program.exe" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InventoryApp.FileHandler\InventoryApp.FileHandler.csproj">
