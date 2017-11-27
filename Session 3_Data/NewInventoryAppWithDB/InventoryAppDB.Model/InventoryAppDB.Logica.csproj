@@ -48,12 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticateAdmin.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="InventoryLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{335acf9b-c3cf-48bb-9cf2-1ef36860ef4f}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryAppDB.View\InventoryAppDB.Datos.csproj">
+      <Project>{86533667-104a-43ed-bcb1-aa874ca3940e}</Project>
+      <Name>InventoryAppDB.Datos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
