@@ -23,4 +23,10 @@ namespace Entities
 		[Required]
 		public bool IsAdmin { get; set; }
 	}
+
+	public class UserNameIsAdminBDSet
+	{		
+		public string Name { get; set; }
+		public bool IsAdmin { get; set; }
+	}
 }

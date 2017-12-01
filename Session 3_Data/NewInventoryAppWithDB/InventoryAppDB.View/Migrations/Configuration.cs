@@ -5,15 +5,16 @@ namespace InventoryAppDB.View.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 	using Entities;
+	using InventoryAppDB.Datos;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<InventoryAppDB.Datos.InventoryDBContext>
+	internal sealed class Configuration : DbMigrationsConfiguration<InventoryAppDB.Datos.InventoryDBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(InventoryAppDB.Datos.InventoryDBContext context)
+        protected override void Seed(InventoryDBContext context)
         {
 			//  This method will be called after migrating to the latest version.
 
@@ -66,6 +67,8 @@ namespace InventoryAppDB.View.Migrations
 				new User() { UserId = 4, Name = "Martha", Password = "user", IsAdmin = false },
 				new User() { UserId = 5, Name = "Christian", Password = "user", IsAdmin = false }
 				);
+
+			context.SaveChanges();
 		}
     }
 }

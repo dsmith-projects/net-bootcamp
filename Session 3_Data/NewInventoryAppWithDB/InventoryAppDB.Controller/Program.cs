@@ -17,11 +17,15 @@ namespace InventoryAppDB.Interfaz
 		{
 			InputOutputData ioData = new InputOutputData();
 			AuthenticateAdmin authAdmin = new AuthenticateAdmin();
-			 
+
+			const int LAST_MENU_OPTION_ADMIN = 8;
+			const int LAST_MENU_OPTION_USER = 4;
 
 			// Verify if account is locked
 			// if not locked do
 			bool locked = false;
+			bool salir = false;
+			int option = 0;
 
 			if (!locked)
 			{
@@ -31,32 +35,103 @@ namespace InventoryAppDB.Interfaz
 				if (args.Length == 0)
 				{
 					ioData.LoginMessageUser();
-					ioData.DisplayUserMenu();
-					int option = ioData.ChooseAnOption();
-					Console.WriteLine("Option chosen is {0}", option);
 
-					switch (option)
+					do
 					{
-						case 1:
-							ListInventoryItems();
-							break;
-						case 2:
-							//AddNewProduct();
-							break;
-						case 3:
-							//ModifyProductAvailableSupplies();
-							break;
-						default:
-							break;
-					}
+						ioData.DisplayUserMenu();
+						option = ioData.ChooseAnOption(LAST_MENU_OPTION_USER);
+						Console.WriteLine("Option chosen is {0}", option);
+
+						switch (option)
+						{
+							case 1:
+								ioData.ListInventoryItems();
+								break;
+							case 2:
+								//AddNewProduct();
+								ioData.ListCustomers();
+								break;
+							case 3:
+								//ModifyProductAvailableSupplies();
+								break;
+							default:
+								salir = true;
+								ioData.DisplayExitMessage();
+								break;
+						} 
+					} while (!salir);
 				}
 				else if (args.Length == 1)
 				{
-					Console.WriteLine("1 argument: admin");
+					if (args[0].ToLower() == "admin")
+					{
+						ioData.LoginMessageAdmin();
+
+						do
+						{
+							//Console.WriteLine("1 argument: admin");							
+							ioData.DisplayAdminMenu();
+							option = ioData.ChooseAnOption(LAST_MENU_OPTION_ADMIN);
+
+							int customerId = -1;
+							int productId = -1;
+
+							switch (option)
+							{
+								case 1:
+									ioData.ListInventoryItems();
+									break;
+								case 2:
+									Product newProduct = ioData.CreateNewProduct();
+									ioData.AddNewProduct(newProduct);
+									//ListCustomers();
+									break;
+								case 3:
+									ioData.DisplayMessageToEditProductSupplies();									
+									ioData.ListInventoryItems();
+									productId = ioData.DisplayMessageToChooseProduct();
+									ioData.ModifyProductAvailableSupplies(productId);									
+									break;
+								case 4:
+									// Remove product from inventory
+									// Que pasa si se queire eliminar un producto que ya esta en un invoice
+									ioData.DisplayMessageToDeleteProduct();
+									ioData.ListInventoryItems();
+									productId = ioData.DisplayMessageToChooseProduct();
+									ioData.RemoveProductById(productId);
+									break;
+								case 5:
+									ioData.DisplayMessageToAddNewCustomer();
+									Customer newCustomer = ioData.CreateNewCustomer();
+									ioData.AddNewCustomer(newCustomer);
+									break;
+								case 6:
+									ioData.DisplayMessageToEditCustomer();
+									ioData.DisplayCustomers();
+									customerId = ioData.DisplayMessageToChooseCustomer();
+									ioData.EditCustomerInfo(customerId);									
+									break;
+								case 7:
+									ioData.DisplayMessageToDeleteCustomer();
+									ioData.DisplayCustomers();
+									customerId = ioData.DisplayMessageToChooseCustomer();
+									ioData.RemoveCustomerById(customerId);
+									break;
+								default:
+									salir = true;
+									ioData.DisplayExitMessage();
+									break;
+							} 
+						} while (!salir);
+					}
+					else
+					{
+						ioData.DisplayInitializationParameterError();
+					}
 				}
 				else
 				{
-					Console.WriteLine("Else de los argumentos");
+					ioData.DisplayInitializationParameterError();
 				}
 			}
 
@@ -64,16 +139,8 @@ namespace InventoryAppDB.Interfaz
 		}
 
 
-		public static void ListInventoryItems()
-		{
-			InventoryLogic inventoryLogic = new InventoryLogic();
-			List<Product> listProducts = inventoryLogic.ListInventoryItems().ToList();
+		
 
-			foreach (var item in listProducts)
-			{
-				Console.WriteLine($"{item.ProductId} - {item.ProductName}");
-			}
-		}		
 
 		//public static void AddNewProduct()
 		//{
@@ -106,32 +173,8 @@ namespace InventoryAppDB.Interfaz
 		//	}
 		//}
 
-		//public static void ModifyProductAvailableSupplies()
-		//{
-		//	Console.WriteLine("To do - Modifying product # of supplies");
-		//}
+		
 
-		//public static void ListAllUsers()
-		//{
-		//	using (var db = new InventoryDBContext())
-		//	{
-		//		//var cust1 = new Customer { First_name = "Juan", Last_name = "Perez", Telephone = "22556688", Email = "juan.perez@yahoo.com" };
-		//		//var cust2 = new Customer { First_name = "Ana", Last_name = "Jimenez", Telephone = "88668800", Email = "ajimenez2000@gmail.com" };
-		//		//db.Customers.Add(cust1);
-		//		//db.Customers.Add(cust2);
-		//		//db.SaveChanges();
 
-		//		var query2 = from cust in db.Customers
-		//					 select cust;
-
-		//		Console.WriteLine("Customers in db: ");
-		//		foreach (var item in query2)
-		//		{
-		//			Console.WriteLine("Customer name: " + item.First_name + " " + item.Last_name);
-		//		}
-
-		//		Console.WriteLine("Press any key...");
-		//	}
-		//}
 	}	
 }
