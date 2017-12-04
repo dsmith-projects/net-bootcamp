@@ -40,6 +40,7 @@ namespace InventoryAppDB.Interfaz
 
 			do
 			{
+				Console.WriteLine();
 				Console.Write("Choose an option: ");
 				input = Console.ReadLine();
 				isNumber = Int32.TryParse(input, out option);
@@ -68,9 +69,12 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 			Console.WriteLine("1. LIST inventory items");
 			Console.WriteLine("2. ADD a new item to the inventory");
-			Console.WriteLine("3. MODIFY the number of the item supplies");
+			Console.WriteLine("3. MODIFY the number of product supplies");
 			Console.WriteLine("4. REMOVE an item from the inventory");
-			Console.WriteLine("5. EXIT application");
+			Console.WriteLine("5. ADD new customer");
+			Console.WriteLine("6. EDIT customer information");
+			Console.WriteLine("7. REMOVE customer by id");
+			Console.WriteLine("8. EXIT application");
 		}
 
 		public void DisplayInitializationParameterError()
@@ -96,9 +100,17 @@ namespace InventoryAppDB.Interfaz
 
 			foreach (var item in listProducts)
 			{
-				Console.WriteLine($"{item.ProductId}\t\t{item.ProductName}\t\t{item.Price}\t\t{item.AvailQuantity}\t\t{item.CategoryId}");
-			}
-		}		
+				Console.WriteLine($"{item.ProductId}\t\t{item.ProductName}\t\t{item.Price}\t\t{item.AvailQuantity}\t\t\t{item.CategoryId}");
+			}			
+		}
+		
+		public void PressAnyKeyToContinue()
+		{
+			Console.WriteLine();
+			Console.WriteLine(">>> Press any key to continue...");
+			Console.ReadKey();
+			Console.Clear();
+		}
 
 		public Product CreateNewProduct()
 		{
@@ -155,7 +167,7 @@ namespace InventoryAppDB.Interfaz
 		}
 
 
-		private int GetProductQuantity()
+		public int GetProductQuantity()
 		{
 			int quantity = 0;
 			bool convertedToInteger;
@@ -223,10 +235,28 @@ namespace InventoryAppDB.Interfaz
 			return validCategory;
 		}
 
+		
+		public void DisplayMessageToListProductsInInventory()
+		{
+			Console.Clear();
+			Console.WriteLine(">>> Products in the inventory: ");
+			Console.WriteLine();
+		}
+
+		public void DisplayMessageToAddNewProduct()
+		{
+			Console.Clear();
+			Console.WriteLine(">>> Add new product to inventory: ");
+			Console.WriteLine();
+		}
+
 		public void AddNewProduct(Product newProduct)
 		{
 			// Add new product 
-			Console.WriteLine("Add new product ");
+			Console.WriteLine();
+			Console.WriteLine("Adding new product to the inventory... ");
+			Console.WriteLine();
+			Console.WriteLine(">>> Product successfully added to inventory");
 		}
 
 		public void DisplayMessageToDeleteProduct()
@@ -256,7 +286,8 @@ namespace InventoryAppDB.Interfaz
 
 			do
 			{
-				Console.WriteLine(">>> Please input the product id: ");
+				Console.WriteLine();
+				Console.Write(">>> Please input the product id: ");
 				convertedToInteger = Int32.TryParse(Console.ReadLine(), out productId);
 
 				if (convertedToInteger)
@@ -299,7 +330,7 @@ namespace InventoryAppDB.Interfaz
 		public void RemoveProductById(int productId)
 		{
 			// To do: remove product by id
-			Console.WriteLine("remove product by id");
+			Console.WriteLine("Removing product by id...");
 		}
 
 
@@ -323,7 +354,7 @@ namespace InventoryAppDB.Interfaz
 				Console.WriteLine();
 			}
 
-			Console.WriteLine("press any key...");
+			//Console.WriteLine("press any key...");
 
 		}
 
@@ -398,7 +429,10 @@ namespace InventoryAppDB.Interfaz
 		public void AddNewCustomer(Customer newCustomer)
 		{
 			// Add new customer 
-			Console.WriteLine("Add new customer ");
+			Console.WriteLine();
+			Console.WriteLine("Adding new customer to the inventory...");
+			Console.WriteLine();
+			Console.WriteLine(">>> The customer has been successfully added to the inventory");
 		}
 
 		public void EditCustomerInfo(int customerId)
@@ -411,50 +445,59 @@ namespace InventoryAppDB.Interfaz
 
 			string temporaryValue = "";
 
-			Console.WriteLine("Edit customer's information; ");
+			Console.WriteLine(">>> Edit customer's information. Note: Leave blank to keep current value!");
 			Console.WriteLine();
 			
 			Console.WriteLine("Current first name: {0}", firstName);			
-			Console.Write("Enter new value or leave blank to keep current value: ");
+			Console.Write("Enter new value: ");
 			temporaryValue = firstName;
 			firstName = Console.ReadLine();
 			if (firstName == "")
 			{
 				firstName = temporaryValue;
 			}
-
+			Console.WriteLine();
 			Console.WriteLine("Current last name: {0}", lastName);
-			Console.Write("Enter new value or leave blank to keep current value: ");
+			Console.Write("Enter new value: ");
 			temporaryValue = lastName;
 			lastName = Console.ReadLine();
 			if (lastName == "")
 			{
 				lastName = temporaryValue;
 			}
-
+			Console.WriteLine();
 			Console.WriteLine("Current telephone: {0}", telephone);
-			Console.Write("Enter new value or leave blank to keep current value: ");
+			Console.Write("Enter new value: ");
 			temporaryValue = telephone;
 			telephone = Console.ReadLine();
 			if (telephone == "")
 			{
 				telephone = temporaryValue;
 			}
-
+			Console.WriteLine();
 			Console.WriteLine("Current email: {0}", email);
-			Console.Write("Enter new value or leave blank to keep current value: ");
+			Console.Write("Enter new value: ");
 			temporaryValue = email;
 			email = Console.ReadLine();
 			if (email == "")
 			{
 				email = temporaryValue;
 			}
+			// Display confirmation message?
 		}
 
 		public void DisplayCustomers()
 		{
 			// Display all customers for user to choose one to edit
-			Console.WriteLine("Display customers in DB");
+
+			List<Customer> listCustomers = inventoryLogic.ListCustomers().ToList();
+
+			Console.WriteLine("CUSTOMER ID\tFIRST NAME\t\tLAST NAME\t\tTELEPHONE\tEMAIL");
+
+			foreach (var item in listCustomers)
+			{
+				Console.WriteLine($"{item.CustomerId}\t\t{item.FirstName}\t\t\t{item.LastName}\t\t\t{item.Telephone}\t{item.Email}");
+			}
 		}
 
 		public int DisplayMessageToChooseCustomer()
@@ -465,7 +508,8 @@ namespace InventoryAppDB.Interfaz
 
 			do
 			{
-				Console.WriteLine(">>> Please input the customer id of the customer you want to edit: ");
+				Console.WriteLine();
+				Console.Write(">>> Please choose a customer id from the list: ");
 				convertedToInteger = Int32.TryParse(Console.ReadLine(), out customerId);
 
 				if (convertedToInteger)
@@ -517,7 +561,37 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine("To do - remove customer by id");
 		}
 
-		
 
+
+
+		// END OF ADMIN METHODS
+
+		// BEGINNING OF USER METHODS
+
+		public void DisplayMessageToCreateNewInvoice()
+		{
+			Console.Clear();
+			Console.WriteLine(">>> Create a new invoice. List of customers: ");
+			Console.WriteLine();
+		}		
+
+		public void CreateNewInvoice(int customerId, int productId, int quantityRequested)
+		{
+			Console.WriteLine();
+			Console.WriteLine(">>> To do: creating new invoice....");
+			Console.WriteLine();
+		}
+
+		public void DisplayMessageToGenerateInvoicesReportByDates()
+		{
+			//
+			Console.WriteLine("to do");
+		}
+
+		public void DisplayMessageToGenerateInvoicesReportByCustomerId()
+		{
+			//
+			Console.WriteLine("to do");
+		}
 	}
 }

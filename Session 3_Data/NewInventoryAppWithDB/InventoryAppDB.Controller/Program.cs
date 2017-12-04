@@ -19,7 +19,7 @@ namespace InventoryAppDB.Interfaz
 			AuthenticateAdmin authAdmin = new AuthenticateAdmin();
 
 			const int LAST_MENU_OPTION_ADMIN = 8;
-			const int LAST_MENU_OPTION_USER = 4;
+			const int LAST_MENU_OPTION_USER = 5;
 
 			// Verify if account is locked
 			// if not locked do
@@ -42,17 +42,35 @@ namespace InventoryAppDB.Interfaz
 						option = ioData.ChooseAnOption(LAST_MENU_OPTION_USER);
 						Console.WriteLine("Option chosen is {0}", option);
 
+						int customerId = -1;
+						int productId = -1;
+						int quantityRequested = 0;
+
 						switch (option)
 						{
 							case 1:
+								ioData.DisplayMessageToListProductsInInventory();
 								ioData.ListInventoryItems();
+								ioData.PressAnyKeyToContinue();
 								break;
 							case 2:
-								//AddNewProduct();
-								ioData.ListCustomers();
+								ioData.DisplayMessageToCreateNewInvoice();								
+								ioData.DisplayCustomers();
+								customerId = ioData.DisplayMessageToChooseCustomer();
+								ioData.DisplayMessageToListProductsInInventory();
+								ioData.ListInventoryItems();
+								productId = ioData.DisplayMessageToChooseProduct();
+								quantityRequested = ioData.GetProductQuantity();
+								ioData.CreateNewInvoice(customerId, productId, quantityRequested);
+								ioData.PressAnyKeyToContinue();
 								break;
 							case 3:
-								//ModifyProductAvailableSupplies();
+								ioData.DisplayMessageToGenerateInvoicesReportByDates();
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 4:
+								ioData.DisplayMessageToGenerateInvoicesReportByCustomerId();
+								ioData.PressAnyKeyToContinue();
 								break;
 							default:
 								salir = true;
@@ -79,18 +97,22 @@ namespace InventoryAppDB.Interfaz
 							switch (option)
 							{
 								case 1:
+									ioData.DisplayMessageToListProductsInInventory();
 									ioData.ListInventoryItems();
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 2:
+									ioData.DisplayMessageToAddNewProduct();
 									Product newProduct = ioData.CreateNewProduct();
 									ioData.AddNewProduct(newProduct);
-									//ListCustomers();
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 3:
 									ioData.DisplayMessageToEditProductSupplies();									
 									ioData.ListInventoryItems();
 									productId = ioData.DisplayMessageToChooseProduct();
-									ioData.ModifyProductAvailableSupplies(productId);									
+									ioData.ModifyProductAvailableSupplies(productId);
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 4:
 									// Remove product from inventory
@@ -99,23 +121,27 @@ namespace InventoryAppDB.Interfaz
 									ioData.ListInventoryItems();
 									productId = ioData.DisplayMessageToChooseProduct();
 									ioData.RemoveProductById(productId);
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 5:
 									ioData.DisplayMessageToAddNewCustomer();
 									Customer newCustomer = ioData.CreateNewCustomer();
 									ioData.AddNewCustomer(newCustomer);
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 6:
 									ioData.DisplayMessageToEditCustomer();
 									ioData.DisplayCustomers();
 									customerId = ioData.DisplayMessageToChooseCustomer();
-									ioData.EditCustomerInfo(customerId);									
+									ioData.EditCustomerInfo(customerId);
+									ioData.PressAnyKeyToContinue();
 									break;
 								case 7:
 									ioData.DisplayMessageToDeleteCustomer();
 									ioData.DisplayCustomers();
 									customerId = ioData.DisplayMessageToChooseCustomer();
 									ioData.RemoveCustomerById(customerId);
+									ioData.PressAnyKeyToContinue();
 									break;
 								default:
 									salir = true;
