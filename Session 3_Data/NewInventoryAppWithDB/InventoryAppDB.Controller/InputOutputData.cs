@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryAppDB.Logica;
 using Entities;
+using System.Text.RegularExpressions;
 
 namespace InventoryAppDB.Interfaz
 {
-    public class InputOutputData
-    {
+	public class InputOutputData
+	{
 		static InventoryLogic inventoryLogic = new InventoryLogic();
 
 		public void WelcomeUser()
@@ -27,8 +28,9 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 			Console.WriteLine("1. LIST inventory items");
 			Console.WriteLine("2. CREATE new invoice");
-			Console.WriteLine("3. DISPLAY invoices report");
-			Console.WriteLine("4. EXIT application");
+			Console.WriteLine("3. DISPLAY invoices report between two dates");
+			Console.WriteLine("4. DISPLAY invoices report per customer id");
+			Console.WriteLine("5. EXIT application");
 			Console.WriteLine();
 		}
 		public int ChooseAnOption(int lastMenuOption)
@@ -62,7 +64,7 @@ namespace InventoryAppDB.Interfaz
 		public void LoginMessageAdmin()
 		{
 			Console.WriteLine("You have signed in as ADMIN\n");
-		} 
+		}
 		public void DisplayAdminMenu()
 		{
 			Console.WriteLine("**** MAIN MENU ****");
@@ -87,7 +89,7 @@ namespace InventoryAppDB.Interfaz
 			Console.Clear();
 			Console.WriteLine(">>> You have exited the application. Have a great day!");
 		}
-		
+
 
 		// STARTS PRODUCT METHODS
 
@@ -96,14 +98,30 @@ namespace InventoryAppDB.Interfaz
 			//InventoryLogic inventoryLogic = new InventoryLogic();
 			List<Product> listProducts = inventoryLogic.ListInventoryItems().ToList();
 
-			Console.WriteLine("PRODUCT ID\tNAME\t\t\tPRICE\t\tAVAILABLE SUPPLIES\tCATEGORY");
+			//Console.WriteLine("PRODUCT ID\tNAME\t\t\tPRICE\t\tAVAILABLE SUPPLIES\tCATEGORY");
+
+			//foreach (var item in listProducts)
+			//{
+			//Console.WriteLine($"{item.ProductId}\t\t{item.ProductName}\t\t{item.Price}\t\t{item.AvailQuantity}\t\t\t{item.CategoryId}");
+			//}
+
+			string line = "";
+			string header = "PRODUCT ID".PadRight(12) + "NAME".PadRight(25) + "PRICE".PadRight(15) + "No. SUPPLIES".PadRight(17) + "CATEGORY".PadRight(20);
+
+			Console.WriteLine(header);
 
 			foreach (var item in listProducts)
 			{
-				Console.WriteLine($"{item.ProductId}\t\t{item.ProductName}\t\t{item.Price}\t\t{item.AvailQuantity}\t\t\t{item.CategoryId}");
-			}			
+				line += item.ProductId.ToString().PadRight(12);
+				line += item.ProductName.PadRight(25);
+				line += item.Price.ToString().PadRight(15);
+				line += item.AvailQuantity.ToString().PadRight(17);
+				line += item.CategoryId.ToString().PadRight(20);
+				Console.WriteLine(line);
+				line = "";
+			}
 		}
-		
+
 		public void PressAnyKeyToContinue()
 		{
 			Console.WriteLine();
@@ -118,9 +136,9 @@ namespace InventoryAppDB.Interfaz
 			decimal price = 0;
 			int quantity = 0;
 			int category = 0;
-			
+
 			Console.WriteLine("Please provide the following information:\n");
-						
+
 			productName = GetProductName();
 			price = GetProductPrice();
 			quantity = GetProductQuantity();
@@ -222,9 +240,9 @@ namespace InventoryAppDB.Interfaz
 					Console.WriteLine(">>> Incorrect value. Please try again:\n");
 				}
 
-				
+
 			} while (!convertedToInteger || !validCategory);
-						
+
 			return category;
 		}
 
@@ -235,7 +253,7 @@ namespace InventoryAppDB.Interfaz
 			return validCategory;
 		}
 
-		
+
 		public void DisplayMessageToListProductsInInventory()
 		{
 			Console.Clear();
@@ -439,7 +457,7 @@ namespace InventoryAppDB.Interfaz
 		{
 			// Edit customer's info
 			string firstName = "";
-			string lastName = ""; 
+			string lastName = "";
 			string telephone = "";
 			string email = "";
 
@@ -447,8 +465,8 @@ namespace InventoryAppDB.Interfaz
 
 			Console.WriteLine(">>> Edit customer's information. Note: Leave blank to keep current value!");
 			Console.WriteLine();
-			
-			Console.WriteLine("Current first name: {0}", firstName);			
+
+			Console.WriteLine("Current first name: {0}", firstName);
 			Console.Write("Enter new value: ");
 			temporaryValue = firstName;
 			firstName = Console.ReadLine();
@@ -492,11 +510,27 @@ namespace InventoryAppDB.Interfaz
 
 			List<Customer> listCustomers = inventoryLogic.ListCustomers().ToList();
 
-			Console.WriteLine("CUSTOMER ID\tFIRST NAME\t\tLAST NAME\t\tTELEPHONE\tEMAIL");
+			//Console.WriteLine("CUSTOMER ID\tFIRST NAME\t\tLAST NAME\t\tTELEPHONE\tEMAIL");
+
+			//foreach (var item in listCustomers)
+			//{
+			//	Console.WriteLine($"{item.CustomerId}\t\t{item.FirstName}\t\t\t{item.LastName}\t\t\t{item.Telephone}\t{item.Email}");
+			//}
+
+			string line = "";
+			string header = "CUSTOMER ID".PadRight(12) + "FIRST NAME".PadRight(22) + "LAST NAME".PadRight(22) + "TELEPHONE".PadRight(17) + "EMAIL".PadRight(20);
+
+			Console.WriteLine(header);
 
 			foreach (var item in listCustomers)
 			{
-				Console.WriteLine($"{item.CustomerId}\t\t{item.FirstName}\t\t\t{item.LastName}\t\t\t{item.Telephone}\t{item.Email}");
+				line += item.CustomerId.ToString().PadRight(12);
+				line += item.FirstName.PadRight(22);
+				line += item.LastName.PadRight(22);
+				line += item.Telephone.ToString().PadRight(17);
+				line += item.Email.ToString().PadRight(20);
+				Console.WriteLine(line);
+				line = "";
 			}
 		}
 
@@ -573,7 +607,7 @@ namespace InventoryAppDB.Interfaz
 			Console.Clear();
 			Console.WriteLine(">>> Create a new invoice. List of customers: ");
 			Console.WriteLine();
-		}		
+		}
 
 		public void CreateNewInvoice(int customerId, int productId, int quantityRequested)
 		{
@@ -584,14 +618,58 @@ namespace InventoryAppDB.Interfaz
 
 		public void DisplayMessageToGenerateInvoicesReportByDates()
 		{
-			//
-			Console.WriteLine("to do");
+			Console.Clear();
+			Console.WriteLine(">>> Invoice report by dates. Please provide the following data: ");
+			Console.WriteLine();
 		}
 
 		public void DisplayMessageToGenerateInvoicesReportByCustomerId()
 		{
-			//
-			Console.WriteLine("to do");
+			Console.Clear();
+			Console.WriteLine(">>> Invoice report by customer id. List of customers: ");
+			Console.WriteLine();
+		}
+
+		public string RequestDate(string message)
+		{
+			string date = "";
+			bool validatesAgainstRegex = false;
+			bool isValidDate = true;
+			do
+			{
+				Console.WriteLine(message + "Format must be dd/mm/yyyy. \n");
+				Console.Write("Date: ");
+				date = Console.ReadLine();
+				Regex regex = new Regex(@"^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$");
+				validatesAgainstRegex = regex.IsMatch(date);
+
+				if (date != "")
+				{
+					if (!validatesAgainstRegex)
+					{
+						isValidDate = false;
+						Console.WriteLine("\n>>> Incorrect format. Please try again.\n");
+					}
+				}
+				
+
+			} while (!isValidDate);
+
+			return date;
+		}
+
+		public void GenerateInvoiceReportFromDatesRange(string startDate, string endDate)
+		{
+			// To do
+			Console.WriteLine();
+			DateTime startD = Convert.ToDateTime(startDate);
+			DateTime endD = Convert.ToDateTime(endDate);
+
+			Console.WriteLine("The start date is " + startD.ToString("dd/mm/yyyy"));
+			Console.WriteLine("The end date is " + endD.ToString("dd/mm/yyyy"));
+
+			Console.WriteLine();
+			Console.WriteLine(">>> Report from {0} to {1}", startDate, endDate);
 		}
 	}
 }

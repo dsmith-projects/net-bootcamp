@@ -40,11 +40,13 @@ namespace InventoryAppDB.Interfaz
 					{
 						ioData.DisplayUserMenu();
 						option = ioData.ChooseAnOption(LAST_MENU_OPTION_USER);
-						Console.WriteLine("Option chosen is {0}", option);
+						//Console.WriteLine("Option chosen is {0}", option);
 
 						int customerId = -1;
 						int productId = -1;
 						int quantityRequested = 0;
+						string startDate = "";
+						string endDate = "";
 
 						switch (option)
 						{
@@ -66,10 +68,15 @@ namespace InventoryAppDB.Interfaz
 								break;
 							case 3:
 								ioData.DisplayMessageToGenerateInvoicesReportByDates();
+								startDate = ioData.RequestDate("Please provide start date. ");
+								endDate = ioData.RequestDate("Please provide end date. ");
+								ioData.GenerateInvoiceReportFromDatesRange(startDate, endDate);
 								ioData.PressAnyKeyToContinue();
 								break;
 							case 4:
 								ioData.DisplayMessageToGenerateInvoicesReportByCustomerId();
+								ioData.DisplayCustomers();
+								customerId = ioData.DisplayMessageToChooseCustomer();
 								ioData.PressAnyKeyToContinue();
 								break;
 							default:
