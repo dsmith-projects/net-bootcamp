@@ -53,5 +53,30 @@ namespace InventoryAppDB.Datos
 			return sqlResult.ToList();
 		}
 
+		public void AddNewProduct(Product product)
+		{
+			context.Products.Add(product);
+			context.SaveChanges();
+		}
+
+		public void AddNewCustomer(Customer customer)
+		{
+			context.Customers.Add(customer);
+			context.SaveChanges();
+		}
+
+		public void AddNewInvoice(Invoice invoice)
+		{
+			context.Invoices.Add(invoice);
+			context.SaveChanges();
+		}
+
+		public Invoice GetLastInvoiceInserted()
+		{
+			Invoice lastInvoice = context.Invoices.ToList().LastOrDefault();
+
+			return lastInvoice;
+		}
+
 	}
 }

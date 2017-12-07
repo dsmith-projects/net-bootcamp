@@ -143,6 +143,8 @@ namespace InventoryAppDB.Interfaz
 			price = GetProductPrice();
 			quantity = GetProductQuantity();
 
+			DisplayMessageToChooseCategory();
+
 			DisplayProductCategories();
 
 			category = ChooseProductCategory();
@@ -184,7 +186,6 @@ namespace InventoryAppDB.Interfaz
 			return price;
 		}
 
-
 		public int GetProductQuantity()
 		{
 			int quantity = 0;
@@ -204,14 +205,31 @@ namespace InventoryAppDB.Interfaz
 			return quantity;
 		}
 
-		private void DisplayProductCategories()
+		public void DisplayMessageToChooseCategory()
 		{
 			Console.WriteLine();
-			Console.WriteLine("Product categories: ");
+			Console.WriteLine(">>> Please choose a category id from the list: ");
 			Console.WriteLine();
-			Console.WriteLine("1. To do category from DB");
-			Console.WriteLine("2. To do category from DB");
-			Console.WriteLine("3. To do category from DB");
+		}
+
+		private void DisplayProductCategories()
+		{
+			//Console.WriteLine();
+			List<Category> listCategories = inventoryLogic.ListCategories().ToList();
+
+			string line = "";
+			string header = "CATEGORY ID".PadRight(20) + "NAME".PadRight(25) + "DESCRIPTION".PadRight(50);
+
+			Console.WriteLine(header);
+
+			foreach (var item in listCategories)
+			{
+				line += item.CategoryId.ToString().PadRight(20);
+				line += item.Name.PadRight(25);
+				line += item.Description.PadRight(50);
+				Console.WriteLine(line);
+				line = "";
+			}
 		}
 
 		private int ChooseProductCategory()
@@ -237,7 +255,8 @@ namespace InventoryAppDB.Interfaz
 				}
 				else
 				{
-					Console.WriteLine(">>> Incorrect value. Please try again:\n");
+					Console.WriteLine();
+					Console.WriteLine(">>> Incorrect value. Please try again:");
 				}
 
 
@@ -248,7 +267,7 @@ namespace InventoryAppDB.Interfaz
 
 		private bool VerifyIfProductCategoryIsValid(int inputCategory)
 		{
-			Console.WriteLine("\n to do: verify if category number is within range \n");
+			Console.WriteLine("\nto do: verify if category number is within range");
 			bool validCategory = true;
 			return validCategory;
 		}
@@ -274,7 +293,9 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 			Console.WriteLine("Adding new product to the inventory... ");
 			Console.WriteLine();
-			Console.WriteLine(">>> Product successfully added to inventory");
+
+			inventoryLogic.AddNewProduct(newProduct);
+			Console.WriteLine(">>> Product successfully added to inventory");			
 		}
 
 		public void DisplayMessageToDeleteProduct()
@@ -448,9 +469,11 @@ namespace InventoryAppDB.Interfaz
 		{
 			// Add new customer 
 			Console.WriteLine();
-			Console.WriteLine("Adding new customer to the inventory...");
+			Console.WriteLine("Adding new customer to the system...");
 			Console.WriteLine();
-			Console.WriteLine(">>> The customer has been successfully added to the inventory");
+
+			inventoryLogic.AddNewCustomer(newCustomer);
+			Console.WriteLine(">>> The customer has been successfully added to the inventory");						
 		}
 
 		public void EditCustomerInfo(int customerId)
@@ -609,11 +632,22 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 		}
 
-		public void CreateNewInvoice(int customerId, int productId, int quantityRequested)
+		public Invoice CreateNewInvoice(int customerId)
 		{
-			Console.WriteLine();
-			Console.WriteLine(">>> To do: creating new invoice....");
-			Console.WriteLine();
+			Invoice newInvoice = new Invoice
+			{
+				CustomerId = customerId,
+				PurchaseDate = DateTime.Now
+			};
+			
+			return newInvoice;
+		}
+
+		public void AddProductsToInvoice()
+		{
+			Invoice lastInvoice = inventoryLogic.GetLastInvoiceInserted();
+
+			Console.WriteLine("Last invoice: " + lastInvoice.InvoiceId);
 		}
 
 		public void DisplayMessageToGenerateInvoicesReportByDates()

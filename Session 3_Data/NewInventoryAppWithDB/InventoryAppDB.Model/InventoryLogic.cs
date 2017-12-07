@@ -44,5 +44,27 @@ namespace InventoryAppDB.Logica
 			var result = datos.VerifyIfUserIsAdmin(userName);
 			return result;
 		}
+
+		public void AddNewProduct(Product product)
+		{
+			datos.AddNewProduct(product);
+		}
+
+		public void AddNewCustomer(Customer customer)
+		{
+			datos.AddNewCustomer(customer);
+		}
+
+		public void AddNewInvoice(Invoice invoice)
+		{
+			datos.AddNewInvoice(invoice);
+		}
+
+		public Invoice GetLastInvoiceInserted()
+		{
+			Invoice lastInvoice = datos.GetLastInvoiceInserted();
+		
+			return lastInvoice;
+		}
 	}
 }

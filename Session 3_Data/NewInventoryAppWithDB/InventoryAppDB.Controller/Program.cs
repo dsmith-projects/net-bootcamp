@@ -47,6 +47,7 @@ namespace InventoryAppDB.Interfaz
 						int quantityRequested = 0;
 						string startDate = "";
 						string endDate = "";
+						string purchaseDate = "";
 
 						switch (option)
 						{
@@ -59,11 +60,13 @@ namespace InventoryAppDB.Interfaz
 								ioData.DisplayMessageToCreateNewInvoice();								
 								ioData.DisplayCustomers();
 								customerId = ioData.DisplayMessageToChooseCustomer();
-								ioData.DisplayMessageToListProductsInInventory();
-								ioData.ListInventoryItems();
-								productId = ioData.DisplayMessageToChooseProduct();
-								quantityRequested = ioData.GetProductQuantity();
-								ioData.CreateNewInvoice(customerId, productId, quantityRequested);
+								//ioData.DisplayMessageToListProductsInInventory();
+								//ioData.ListInventoryItems();
+								//productId = ioData.DisplayMessageToChooseProduct();
+								//quantityRequested = ioData.GetProductQuantity();
+								//purchaseDate = ioData.RequestDate("Purchase date: ");
+								Invoice newInvoice = ioData.CreateNewInvoice(customerId);
+								ioData.AddProductsToInvoice();
 								ioData.PressAnyKeyToContinue();
 								break;
 							case 3:
