@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InventoryAppDB.Logica;
 using Entities;
 using System.Text.RegularExpressions;
+using System.Data.SqlClient;
 
 namespace InventoryAppDB.Interfaz
 {
@@ -643,11 +644,80 @@ namespace InventoryAppDB.Interfaz
 			return newInvoice;
 		}
 
+		public void AddNewInvoice(Invoice newInvoice)
+		{
+			// Add new invoice 
+			//Console.WriteLine();
+			//Console.WriteLine("Creating new invoice... ");
+			
+
+			inventoryLogic.AddNewInvoice(newInvoice);
+			//Console.WriteLine(">>> Invoice successfully created");
+			Console.WriteLine();
+			Console.WriteLine(">>> Press any key to choose the products you want to add to the invoice: ");
+			Console.ReadKey();
+		}
+
+		public void DisplayMessageToChooseProducts()
+		{
+			Console.WriteLine();
+			Console.Write(">>> Please choose the products you want to add to the invoice: ");			
+			//Console.Clear();
+		}
+
 		public void AddProductsToInvoice()
 		{
 			Invoice lastInvoice = inventoryLogic.GetLastInvoiceInserted();
 
-			Console.WriteLine("Last invoice: " + lastInvoice.InvoiceId);
+			int invoiceId = lastInvoice.InvoiceId;
+			int productId = 0;
+			int quantity = 0;
+
+			bool addMoreProducts = false;
+			string userInput = "";
+
+			List<ProdXInvoice> listOfProdXInvoices = new List<ProdXInvoice>();
+
+			Console.WriteLine();
+			Console.WriteLine(">>> Add products to the new invoice....");
+			Console.WriteLine();
+
+			DisplayMessageToListProductsInInventory();
+			ListInventoryItems();
+
+			do
+			{				
+				productId = DisplayMessageToChooseProduct();
+				quantity = GetProductQuantity();
+
+				ProdXInvoice newProdXInvoice = new ProdXInvoice
+				{
+					InvoiceId = invoiceId,
+					ProductId = productId,
+					Quantity = quantity,
+				};
+
+				listOfProdXInvoices.Add(newProdXInvoice);
+
+				Console.WriteLine();
+				Console.Write(">>> Do you want to add more products to the invoice? [y] > Yes | [n] > No: ");
+				userInput = Console.ReadLine();
+				
+				if (userInput.Equals("no") || userInput.Equals("n"))
+				{
+					addMoreProducts = false;
+				}
+				else
+				{
+					addMoreProducts = true;
+				}
+
+			} while (addMoreProducts);
+			
+			inventoryLogic.AddProductsToInvoice(listOfProdXInvoices);
+
+			Console.WriteLine();
+			Console.WriteLine(">>> Products successfully added to invoice");
 		}
 
 		public void DisplayMessageToGenerateInvoicesReportByDates()
@@ -704,6 +774,8 @@ namespace InventoryAppDB.Interfaz
 
 			Console.WriteLine();
 			Console.WriteLine(">>> Report from {0} to {1}", startDate, endDate);
+
+
 		}
 	}
 }

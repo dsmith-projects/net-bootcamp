@@ -59,13 +59,10 @@ namespace InventoryAppDB.Interfaz
 							case 2:
 								ioData.DisplayMessageToCreateNewInvoice();								
 								ioData.DisplayCustomers();
-								customerId = ioData.DisplayMessageToChooseCustomer();
-								//ioData.DisplayMessageToListProductsInInventory();
-								//ioData.ListInventoryItems();
-								//productId = ioData.DisplayMessageToChooseProduct();
-								//quantityRequested = ioData.GetProductQuantity();
-								//purchaseDate = ioData.RequestDate("Purchase date: ");
+								customerId = ioData.DisplayMessageToChooseCustomer();							
 								Invoice newInvoice = ioData.CreateNewInvoice(customerId);
+								//ioData.DisplayMessageToChooseProducts();
+								ioData.AddNewInvoice(newInvoice);
 								ioData.AddProductsToInvoice();
 								ioData.PressAnyKeyToContinue();
 								break;

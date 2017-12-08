@@ -66,5 +66,13 @@ namespace InventoryAppDB.Logica
 		
 			return lastInvoice;
 		}
+
+		public void AddProductsToInvoice(List<ProdXInvoice> listOfProdXInvoices)
+		{
+			foreach (var prod in listOfProdXInvoices)
+			{
+				datos.AddProductsToInvoice(prod);
+			}
+		}
 	}
 }

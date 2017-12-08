@@ -78,5 +78,17 @@ namespace InventoryAppDB.Datos
 			return lastInvoice;
 		}
 
+		public void AddProductsToInvoice(ProdXInvoice prod)
+		{
+			context.ProdXInvoice.Add(prod);
+			context.SaveChanges();
+		}
+
+		//public List<Invoice> GetInvoicesWithinDatesRange(DateTime startDate, DateTime endDate)
+		//{			
+		//	SqlParameter start = new SqlParameter("@PurchaseDate");
+		//	List<Invoice> invoicesWithinRange = await context
+		//}
+
 	}
 }
