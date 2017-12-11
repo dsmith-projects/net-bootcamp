@@ -84,11 +84,23 @@ namespace InventoryAppDB.Datos
 			context.SaveChanges();
 		}
 
-		//public List<Invoice> GetInvoicesWithinDatesRange(DateTime startDate, DateTime endDate)
-		//{			
-		//	SqlParameter start = new SqlParameter("@PurchaseDate");
-		//	List<Invoice> invoicesWithinRange = await context
-		//}
+		public IEnumerable<Invoice> GetInvoicesWithinDateRange(DateTime startDate, DateTime endDate)
+		{
+			SqlParameter p_startDate = new SqlParameter("@startDate", startDate);
+			SqlParameter p_endDate = new SqlParameter("@endDate", endDate);
 
+			var sqlResult = context.Database.SqlQuery<Invoice>("sp_Invoices_GetInvoicesWithinDateRange @startDate, @endDate", p_startDate, p_endDate);
+			
+			return sqlResult.ToList();
+		}
+
+		public IEnumerable<Invoice> GetInvoicesByCustomerId(int customerId)
+		{
+			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
+
+			var sqlResult = context.Database.SqlQuery<Invoice>("sp_Invoices_GetInvoicesByCustomerId @customerId", p_customerId);
+
+			return sqlResult.ToList();
+		}
 	}
 }

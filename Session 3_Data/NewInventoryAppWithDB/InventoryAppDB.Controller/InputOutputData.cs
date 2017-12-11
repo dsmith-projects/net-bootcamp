@@ -7,6 +7,7 @@ using InventoryAppDB.Logica;
 using Entities;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace InventoryAppDB.Interfaz
 {
@@ -734,16 +735,16 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 		}
 
-		public string RequestDate(string message)
+		public DateTime RequestDate(string message)
 		{
 			string date = "";
 			bool validatesAgainstRegex = false;
 			bool isValidDate = true;
 			do
 			{
-				Console.WriteLine(message + "Format must be dd/mm/yyyy. \n");
-				Console.Write("Date: ");
+				Console.Write(message + "Format must be dd/MM/yyyy: ");				
 				date = Console.ReadLine();
+				Console.WriteLine();
 				Regex regex = new Regex(@"^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$");
 				validatesAgainstRegex = regex.IsMatch(date);
 
@@ -758,24 +759,62 @@ namespace InventoryAppDB.Interfaz
 				
 
 			} while (!isValidDate);
-
-			return date;
+			
+			return DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 		}
 
-		public void GenerateInvoiceReportFromDatesRange(string startDate, string endDate)
+		public void GenerateInvoiceReportFromDatesRange(DateTime startDate, DateTime endDate)
 		{
-			// To do
+			//Console.Clear();
 			Console.WriteLine();
-			DateTime startD = Convert.ToDateTime(startDate);
-			DateTime endD = Convert.ToDateTime(endDate);
+			
+			//Console.WriteLine();
+			//Console.WriteLine(">>> Dates from {0} to {1}", startDate, endDate);
+			//Console.WriteLine(">>> Start date is:\n\tDay: {0} \n\tMonth: {1} \n\tYear: {2}", startDate.Day, startDate.Month, startDate.Year);
+			//Console.WriteLine();
+			//Console.WriteLine(">>> End date is:\n\tDay: {0} \n\tMonth: {1} \n\tYear: {2}", endDate.Day, endDate.Month, endDate.Year);
 
-			Console.WriteLine("The start date is " + startD.ToString("dd/mm/yyyy"));
-			Console.WriteLine("The end date is " + endD.ToString("dd/mm/yyyy"));
+			List<Invoice> listInvoicesWithinDateRange = inventoryLogic.GetInvoicesWithinDateRange(startDate, endDate).ToList();
+
+			Console.WriteLine(">>> Invoices report from {0} to {1} \n", startDate.ToString("dd MMM, yyyy"), endDate.ToString("dd MMM, yyyy"));
+
+			string line = "";
+			string header = "INVOICE ID".PadRight(15) + "CUSTOMER ID".PadRight(15) + "PURCHASE DATE".PadRight(22);
+
+			Console.WriteLine(header);
+
+			foreach (var item in listInvoicesWithinDateRange)
+			{
+				line += item.InvoiceId.ToString().PadRight(15);
+				line += item.CustomerId.ToString().PadRight(15);
+				line += item.PurchaseDate.ToString().PadRight(22);
+				Console.WriteLine(line);
+				line = "";
+			}
+		}
+
+		public void GenerateInvoiceReportByCustomerId(int customerId)
+		{
 
 			Console.WriteLine();
-			Console.WriteLine(">>> Report from {0} to {1}", startDate, endDate);
 
+			List<Invoice> listInvoicesByCustomerId = inventoryLogic.GetInvoicesByCustomerId(customerId).ToList();
 
+			Console.WriteLine(">>> Invoices report for customer id {0} \n", customerId);
+
+			string line = "";
+			string header = "INVOICE ID".PadRight(15) + "CUSTOMER ID".PadRight(15) + "PURCHASE DATE".PadRight(22);
+
+			Console.WriteLine(header);
+
+			foreach (var item in listInvoicesByCustomerId)
+			{
+				line += item.InvoiceId.ToString().PadRight(15);
+				line += item.CustomerId.ToString().PadRight(15);
+				line += item.PurchaseDate.ToString().PadRight(22);
+				Console.WriteLine(line);
+				line = "";
+			}
 		}
 	}
 }

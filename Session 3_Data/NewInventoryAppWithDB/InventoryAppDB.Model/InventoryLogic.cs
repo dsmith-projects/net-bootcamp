@@ -1,5 +1,6 @@
 ﻿using Entities;
 using InventoryAppDB.Datos;
+using System;
 using System.Collections.Generic;
 
 namespace InventoryAppDB.Logica
@@ -73,6 +74,16 @@ namespace InventoryAppDB.Logica
 			{
 				datos.AddProductsToInvoice(prod);
 			}
+		}
+
+		public IEnumerable<Invoice> GetInvoicesWithinDateRange(DateTime startDate, DateTime endDate)
+		{
+			return datos.GetInvoicesWithinDateRange(startDate, endDate);
+		}
+
+		public IEnumerable<Invoice> GetInvoicesByCustomerId(int customerId)
+		{
+			return datos.GetInvoicesByCustomerId(customerId);
 		}
 	}
 }

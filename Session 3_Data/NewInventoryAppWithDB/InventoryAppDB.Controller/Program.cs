@@ -43,11 +43,11 @@ namespace InventoryAppDB.Interfaz
 						//Console.WriteLine("Option chosen is {0}", option);
 
 						int customerId = -1;
-						int productId = -1;
-						int quantityRequested = 0;
-						string startDate = "";
-						string endDate = "";
-						string purchaseDate = "";
+						//int productId = -1;
+						//int quantityRequested = 0;
+						DateTime startDate;
+						DateTime endDate;
+						//string purchaseDate = "";
 
 						switch (option)
 						{
@@ -77,6 +77,7 @@ namespace InventoryAppDB.Interfaz
 								ioData.DisplayMessageToGenerateInvoicesReportByCustomerId();
 								ioData.DisplayCustomers();
 								customerId = ioData.DisplayMessageToChooseCustomer();
+								ioData.GenerateInvoiceReportByCustomerId(customerId);
 								ioData.PressAnyKeyToContinue();
 								break;
 							default:
