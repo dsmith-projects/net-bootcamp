@@ -18,7 +18,7 @@ namespace InventoryAppDB.Interfaz
 			InputOutputData ioData = new InputOutputData();
 			AuthenticateAdmin authAdmin = new AuthenticateAdmin();
 
-			const int LAST_MENU_OPTION_ADMIN = 8;
+			const int LAST_MENU_OPTION_ADMIN = 9;
 			const int LAST_MENU_OPTION_USER = 5;
 
 			// Verify if account is locked
@@ -132,19 +132,25 @@ namespace InventoryAppDB.Interfaz
 									ioData.PressAnyKeyToContinue();
 									break;
 								case 5:
+									ioData.DisplayMessageToCreateNewCategory();
+									Category newCategory = ioData.CreateNewProductCategory();
+									ioData.AddNewCategory(newCategory);
+									ioData.PressAnyKeyToContinue();
+									break;
+								case 6:
 									ioData.DisplayMessageToAddNewCustomer();
 									Customer newCustomer = ioData.CreateNewCustomer();
 									ioData.AddNewCustomer(newCustomer);
 									ioData.PressAnyKeyToContinue();
 									break;
-								case 6:
+								case 7:
 									ioData.DisplayMessageToEditCustomer();
 									ioData.DisplayCustomers();
 									customerId = ioData.DisplayMessageToChooseCustomer();
 									ioData.EditCustomerInfo(customerId);
 									ioData.PressAnyKeyToContinue();
 									break;
-								case 7:
+								case 8:
 									ioData.DisplayMessageToDeleteCustomer();
 									ioData.DisplayCustomers();
 									customerId = ioData.DisplayMessageToChooseCustomer();

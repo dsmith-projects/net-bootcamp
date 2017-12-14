@@ -102,5 +102,27 @@ namespace InventoryAppDB.Datos
 
 			return sqlResult.ToList();
 		}
+
+		public void AddNewCategory(Category category)
+		{
+			context.Categories.Add(category);
+			context.SaveChanges();
+		}
+
+		public void DeleteProductById(int productId)
+		{
+			// to do 
+		}
+
+		public void EditCustomerInfo(int customerId, string firstName, string lastName, string telephone, string email)
+		{
+			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
+			SqlParameter p_firstName = new SqlParameter("@firstName", firstName);
+			SqlParameter p_lastName = new SqlParameter("@lastName", lastName);
+			SqlParameter p_telephone = new SqlParameter("@telephone", telephone);
+			SqlParameter p_email = new SqlParameter("@email", email);
+
+			context.Database.SqlQuery<Product>("sp_Products_UpdateCustomerInformation @customerId, @firstName, @lastName, @telephone, @email", p_customerId, p_firstName, p_lastName, p_telephone, p_email);
+		}
 	}
 }

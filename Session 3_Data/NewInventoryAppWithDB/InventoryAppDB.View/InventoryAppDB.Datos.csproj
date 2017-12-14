@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201712112313084_SPGetInvoicesByCustomerId.Designer.cs">
       <DependentUpon>201712112313084_SPGetInvoicesByCustomerId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712141734448_SpUpdateCustomerInfo.cs" />
+    <Compile Include="Migrations\201712141734448_SpUpdateCustomerInfo.Designer.cs">
+      <DependentUpon>201712141734448_SpUpdateCustomerInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712112313084_SPGetInvoicesByCustomerId.resx">
       <DependentUpon>201712112313084_SPGetInvoicesByCustomerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712141734448_SpUpdateCustomerInfo.resx">
+      <DependentUpon>201712141734448_SpUpdateCustomerInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

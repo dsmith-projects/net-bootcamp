@@ -75,10 +75,11 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine("2. ADD a new item to the inventory");
 			Console.WriteLine("3. MODIFY the number of product supplies");
 			Console.WriteLine("4. REMOVE an item from the inventory");
-			Console.WriteLine("5. ADD new customer");
-			Console.WriteLine("6. EDIT customer information");
-			Console.WriteLine("7. REMOVE customer by id");
-			Console.WriteLine("8. EXIT application");
+			Console.WriteLine("5. CREATE new product category");
+			Console.WriteLine("6. ADD new customer");
+			Console.WriteLine("7. EDIT customer information");
+			Console.WriteLine("8. REMOVE customer by id");
+			Console.WriteLine("9. EXIT application");
 		}
 
 		public void DisplayInitializationParameterError()
@@ -370,8 +371,86 @@ namespace InventoryAppDB.Interfaz
 
 		public void RemoveProductById(int productId)
 		{
+			int product_Id;
+
 			// To do: remove product by id
 			Console.WriteLine("Removing product by id...");
+						
+			ListInventoryItems();
+
+			product_Id = GetProductId();
+
+			// to do: set product as inactive
+		}
+
+		public int GetProductId()
+		{
+			int pId = 0;
+			bool convertedToInteger;
+
+			do
+			{
+				Console.Write("Product id: ");
+				convertedToInteger = Int32.TryParse(Console.ReadLine(), out pId);
+
+				if (!convertedToInteger)
+				{
+					Console.WriteLine(">>> Incorrect value. Please try again:\n");
+				}
+			} while (!convertedToInteger);
+
+			return pId;
+		}
+
+		public void DisplayMessageToCreateNewCategory()
+		{
+			Console.Clear();
+			Console.WriteLine(">>> Create a new product category: ");
+			Console.WriteLine();
+		}
+
+		public Category CreateNewProductCategory()
+		{
+			string category = "";
+			string description = "";
+
+			Console.WriteLine("Please provide the following information:\n");
+
+			category = GetCategoryName();
+			description = GetCategoryDescription();
+
+			Category newCategory = new Category
+			{
+				Name = category,
+				Description = description
+			};
+
+			return newCategory;
+		}
+
+		private string GetCategoryName()
+		{
+			Console.Write("Category name: ");
+			string categoryName = Console.ReadLine();
+			return categoryName;
+		}
+
+		private string GetCategoryDescription()
+		{
+			Console.Write("Category description: ");
+			string categoryDescription = Console.ReadLine();
+			return categoryDescription;
+		}
+
+		public void AddNewCategory(Category newCategory)
+		{
+			// Add new product category 
+			Console.WriteLine();
+			Console.WriteLine("Creating new product category... ");
+			Console.WriteLine();
+
+			inventoryLogic.AddNewCategory(newCategory);
+			Console.WriteLine(">>> Category successfully created");
 		}
 
 
@@ -527,6 +606,12 @@ namespace InventoryAppDB.Interfaz
 				email = temporaryValue;
 			}
 			// Display confirmation message?
+
+			Console.WriteLine();
+
+			inventoryLogic.EditCustomerInfo(customerId, firstName, lastName, telephone, email);
+
+			Console.WriteLine(">>> Customer information successfully updated\n");			
 		}
 
 		public void DisplayCustomers()

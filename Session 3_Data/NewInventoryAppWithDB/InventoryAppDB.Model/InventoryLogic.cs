@@ -85,5 +85,16 @@ namespace InventoryAppDB.Logica
 		{
 			return datos.GetInvoicesByCustomerId(customerId);
 		}
+
+		public void AddNewCategory(Category category)
+		{
+			datos.AddNewCategory(category);
+		}
+
+		public void EditCustomerInfo(int customerId, string firstName, string lastName, string telephone, string email)
+		{
+			datos.EditCustomerInfo(customerId, firstName, lastName, telephone, email);
+		}
+
 	}
 }
