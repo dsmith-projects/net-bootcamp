@@ -7,13 +7,13 @@ namespace InventoryAppDB.View.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SpUpdateCustomerInfo : IMigrationMetadata
+    public sealed partial class RetrieveCustomerById : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SpUpdateCustomerInfo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RetrieveCustomerById));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712141734448_SpUpdateCustomerInfo"; }
+            get { return "201712181533298_RetrieveCustomerById"; }
         }
         
         string IMigrationMetadata.Source

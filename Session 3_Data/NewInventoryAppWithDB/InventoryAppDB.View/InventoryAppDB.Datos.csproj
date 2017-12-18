@@ -81,9 +81,17 @@
     <Compile Include="Migrations\201712112313084_SPGetInvoicesByCustomerId.Designer.cs">
       <DependentUpon>201712112313084_SPGetInvoicesByCustomerId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712141734448_SpUpdateCustomerInfo.cs" />
-    <Compile Include="Migrations\201712141734448_SpUpdateCustomerInfo.Designer.cs">
-      <DependentUpon>201712141734448_SpUpdateCustomerInfo.cs</DependentUpon>
+    <Compile Include="Migrations\201712181533298_RetrieveCustomerById.cs" />
+    <Compile Include="Migrations\201712181533298_RetrieveCustomerById.Designer.cs">
+      <DependentUpon>201712181533298_RetrieveCustomerById.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712182031417_UpdateCustomerInformation.cs" />
+    <Compile Include="Migrations\201712182031417_UpdateCustomerInformation.Designer.cs">
+      <DependentUpon>201712182031417_UpdateCustomerInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712182046251_SpUpdateNumberOfProductSupplies.cs" />
+    <Compile Include="Migrations\201712182046251_SpUpdateNumberOfProductSupplies.Designer.cs">
+      <DependentUpon>201712182046251_SpUpdateNumberOfProductSupplies.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,8 +130,14 @@
     <EmbeddedResource Include="Migrations\201712112313084_SPGetInvoicesByCustomerId.resx">
       <DependentUpon>201712112313084_SPGetInvoicesByCustomerId.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712141734448_SpUpdateCustomerInfo.resx">
-      <DependentUpon>201712141734448_SpUpdateCustomerInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712181533298_RetrieveCustomerById.resx">
+      <DependentUpon>201712181533298_RetrieveCustomerById.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712182031417_UpdateCustomerInformation.resx">
+      <DependentUpon>201712182031417_UpdateCustomerInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712182046251_SpUpdateNumberOfProductSupplies.resx">
+      <DependentUpon>201712182046251_SpUpdateNumberOfProductSupplies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

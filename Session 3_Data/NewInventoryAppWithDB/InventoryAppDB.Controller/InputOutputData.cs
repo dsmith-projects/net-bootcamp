@@ -317,7 +317,15 @@ namespace InventoryAppDB.Interfaz
 
 		public void ModifyProductAvailableSupplies(int productId)
 		{
-			Console.WriteLine("To do - Modifying product # of supplies");
+			int quantity = 0;
+			Console.WriteLine(">>> Modifying # of product supplies. Provide updated data:");
+			Console.WriteLine();
+			quantity = GetProductQuantity();
+			
+			Console.WriteLine();
+			inventoryLogic.ModifyProductAvailableSupplies(productId, quantity);
+
+			Console.WriteLine(">>> Number of supplies successfully updated");
 		}
 
 		public int DisplayMessageToChooseProduct()
@@ -559,19 +567,25 @@ namespace InventoryAppDB.Interfaz
 
 		public void EditCustomerInfo(int customerId)
 		{
+			Customer customer = inventoryLogic.RetrieveCustomerById(customerId);
+
 			// Edit customer's info
 			string firstName = "";
 			string lastName = "";
 			string telephone = "";
 			string email = "";
-
 			string temporaryValue = "";
+			
+			firstName = customer.FirstName;
+			lastName =  customer.LastName;
+			telephone = customer.Telephone;
+			email = customer.Email;
 
 			Console.WriteLine(">>> Edit customer's information. Note: Leave blank to keep current value!");
 			Console.WriteLine();
 
 			Console.WriteLine("Current first name: {0}", firstName);
-			Console.Write("Enter new value: ");
+			Console.Write("First name: ");
 			temporaryValue = firstName;
 			firstName = Console.ReadLine();
 			if (firstName == "")
@@ -608,7 +622,7 @@ namespace InventoryAppDB.Interfaz
 			// Display confirmation message?
 
 			Console.WriteLine();
-
+			//Console.WriteLine("{0} \n {1} \n {2} \n {3} \n {4}", customerId, firstName, lastName, telephone, email);
 			inventoryLogic.EditCustomerInfo(customerId, firstName, lastName, telephone, email);
 
 			Console.WriteLine(">>> Customer information successfully updated\n");			
@@ -820,14 +834,24 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 		}
 
-		public DateTime RequestDate(string message)
+		public String RequestDate(string message)
+		{
+			string date = "";
+			Console.Write(message + "Format must be dd/MM/yyyy: ");				
+			date = Console.ReadLine();
+			Console.WriteLine();
+			
+			return date;
+		}
+
+		public DateTime ValidateDates(string date)
 		{
 			string date = "";
 			bool validatesAgainstRegex = false;
 			bool isValidDate = true;
 			do
 			{
-				Console.Write(message + "Format must be dd/MM/yyyy: ");				
+				Console.Write(message + "Format must be dd/MM/yyyy: ");
 				date = Console.ReadLine();
 				Console.WriteLine();
 				Regex regex = new Regex(@"^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$");
@@ -841,12 +865,40 @@ namespace InventoryAppDB.Interfaz
 						Console.WriteLine("\n>>> Incorrect format. Please try again.\n");
 					}
 				}
-				
+
 
 			} while (!isValidDate);
-			
+
 			return DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 		}
+
+		//public DateTime RequestDate(string message)
+		//{
+		//	string date = "";
+		//	bool validatesAgainstRegex = false;
+		//	bool isValidDate = true;
+		//	do
+		//	{
+		//		Console.Write(message + "Format must be dd/MM/yyyy: ");
+		//		date = Console.ReadLine();
+		//		Console.WriteLine();
+		//		Regex regex = new Regex(@"^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$");
+		//		validatesAgainstRegex = regex.IsMatch(date);
+
+		//		if (date != "")
+		//		{
+		//			if (!validatesAgainstRegex)
+		//			{
+		//				isValidDate = false;
+		//				Console.WriteLine("\n>>> Incorrect format. Please try again.\n");
+		//			}
+		//		}
+
+
+		//	} while (!isValidDate);
+
+		//	return DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+		//}
 
 		public void GenerateInvoiceReportFromDatesRange(DateTime startDate, DateTime endDate)
 		{

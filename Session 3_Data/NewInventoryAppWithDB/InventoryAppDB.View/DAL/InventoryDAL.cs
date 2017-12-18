@@ -2,6 +2,7 @@
 using InventoryAppDB.Datos;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -114,6 +115,15 @@ namespace InventoryAppDB.Datos
 			// to do 
 		}
 
+		public Customer RetrieveCustomerById(int customerId)
+		{
+			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
+
+			var sqlResult = context.Customers.SqlQuery("sp_Customers_RetrieveCustomerById @customerId", p_customerId).SingleOrDefault();
+
+			return sqlResult;
+		}
+
 		public void EditCustomerInfo(int customerId, string firstName, string lastName, string telephone, string email)
 		{
 			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
@@ -122,7 +132,25 @@ namespace InventoryAppDB.Datos
 			SqlParameter p_telephone = new SqlParameter("@telephone", telephone);
 			SqlParameter p_email = new SqlParameter("@email", email);
 
-			context.Database.SqlQuery<Product>("sp_Products_UpdateCustomerInformation @customerId, @firstName, @lastName, @telephone, @email", p_customerId, p_firstName, p_lastName, p_telephone, p_email);
+			context.Database.ExecuteSqlCommand("sp_Customers_UpdateCustomerInformation @customerId, @firstName, @lastName, @telephone, @email", p_customerId, p_firstName, p_lastName, p_telephone, p_email);
+			context.SaveChanges();
+		}	
+		
+		public void RefreshAll()
+		{
+			foreach (var entity in context.ChangeTracker.Entries())
+			{
+				entity.Reload();
+			}
+		}
+
+		public void ModifyProductAvailableSupplies(int productId, int quantity)
+		{
+			SqlParameter p_productId = new SqlParameter("@productId", productId);
+			SqlParameter p_quantity = new SqlParameter("@availQuantity", quantity);
+
+			context.Database.ExecuteSqlCommand("sp_Products_UpdateNumberSupplies @productId, @availQuantity", p_productId, p_quantity);
+			context.SaveChanges();
 		}
 	}
 }

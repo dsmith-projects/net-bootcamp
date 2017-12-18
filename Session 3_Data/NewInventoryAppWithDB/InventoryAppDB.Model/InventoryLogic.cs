@@ -94,7 +94,18 @@ namespace InventoryAppDB.Logica
 		public void EditCustomerInfo(int customerId, string firstName, string lastName, string telephone, string email)
 		{
 			datos.EditCustomerInfo(customerId, firstName, lastName, telephone, email);
+			datos.RefreshAll();
 		}
 
+		public Customer RetrieveCustomerById(int customerId)
+		{
+			return datos.RetrieveCustomerById(customerId);
+		}
+
+		public void ModifyProductAvailableSupplies(int productId, int quantity)
+		{
+			datos.ModifyProductAvailableSupplies(productId, quantity);
+			datos.RefreshAll();
+		}
 	}
 }
