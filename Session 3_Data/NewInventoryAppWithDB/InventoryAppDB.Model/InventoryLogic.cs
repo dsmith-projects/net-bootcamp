@@ -81,6 +81,11 @@ namespace InventoryAppDB.Logica
 			return datos.GetInvoicesWithinDateRange(startDate, endDate);
 		}
 
+		public IEnumerable<Invoice> GetAllInvoices()
+		{
+			return datos.ListInvoices();
+		}
+
 		public IEnumerable<Invoice> GetInvoicesByCustomerId(int customerId)
 		{
 			return datos.GetInvoicesByCustomerId(customerId);
@@ -106,6 +111,21 @@ namespace InventoryAppDB.Logica
 		{
 			datos.ModifyProductAvailableSupplies(productId, quantity);
 			datos.RefreshAll();
+		}
+
+		public double GetInvoicesGrandTotalByCustomerId(int customerId)
+		{
+			return datos.GetInvoicesGrandTotalByCustomerId(customerId);
+		}
+
+		public IEnumerable<TopThreeProd> GetTopThreePurchasedProducts(int customerId)
+		{
+			return datos.GetTopThreePurchasedProducts(customerId);
+		}
+
+		public double GetAverageSpentOnInvoice(int customerId)
+		{
+			return datos.GetAverageSpentOnInvoice(customerId);
 		}
 	}
 }

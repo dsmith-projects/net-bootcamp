@@ -45,8 +45,10 @@ namespace InventoryAppDB.Interfaz
 						int customerId = -1;
 						//int productId = -1;
 						//int quantityRequested = 0;
-						DateTime startDate;
-						DateTime endDate;
+						string startDate;
+						string endDate;
+						bool validStartDate;
+						bool validEndDate;
 						//string purchaseDate = "";
 
 						switch (option)
@@ -69,8 +71,10 @@ namespace InventoryAppDB.Interfaz
 							case 3:
 								ioData.DisplayMessageToGenerateInvoicesReportByDates();
 								startDate = ioData.RequestDate("Please provide start date. ");
+								validStartDate = ioData.ValidateDate(startDate);
 								endDate = ioData.RequestDate("Please provide end date. ");
-								ioData.GenerateInvoiceReportFromDatesRange(startDate, endDate);
+								validEndDate = ioData.ValidateDate(endDate);								
+								ioData.GenerateInvoiceReportFromDatesRange(startDate, endDate, validStartDate, validEndDate);
 								ioData.PressAnyKeyToContinue();
 								break;
 							case 4:

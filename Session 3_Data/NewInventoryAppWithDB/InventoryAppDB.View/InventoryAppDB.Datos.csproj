@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201712182046251_SpUpdateNumberOfProductSupplies.Designer.cs">
       <DependentUpon>201712182046251_SpUpdateNumberOfProductSupplies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712192255005_SpGetTotalByCustomerId.cs" />
+    <Compile Include="Migrations\201712192255005_SpGetTotalByCustomerId.Designer.cs">
+      <DependentUpon>201712192255005_SpGetTotalByCustomerId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -138,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712182046251_SpUpdateNumberOfProductSupplies.resx">
       <DependentUpon>201712182046251_SpUpdateNumberOfProductSupplies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712192255005_SpGetTotalByCustomerId.resx">
+      <DependentUpon>201712192255005_SpGetTotalByCustomerId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

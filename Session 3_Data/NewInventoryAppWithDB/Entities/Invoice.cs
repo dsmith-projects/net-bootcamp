@@ -24,4 +24,12 @@ namespace Entities
 
 		//public virtual IEnumerable<ProdXInvoice> ProdXInvoices { get; set; }
 	}
+
+	public class TopThreeProd
+	{		
+		public int ProductId { get; set; }
+		public string ProductName { get; set; }
+		public int Quantity { get; set; }
+		public string Name { get; set; }
+	}
 }

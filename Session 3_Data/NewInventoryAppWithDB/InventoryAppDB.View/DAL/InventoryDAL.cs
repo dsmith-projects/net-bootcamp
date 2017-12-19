@@ -152,5 +152,32 @@ namespace InventoryAppDB.Datos
 			context.Database.ExecuteSqlCommand("sp_Products_UpdateNumberSupplies @productId, @availQuantity", p_productId, p_quantity);
 			context.SaveChanges();
 		}
+
+		public double GetInvoicesGrandTotalByCustomerId(int customerId)
+		{
+			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
+
+			double sqlResult = context.Database.ExecuteSqlCommand("sp_Reports_SumOfTotalsFromInvoicesOfClient @customerId", p_customerId);
+
+			return sqlResult;
+		}
+
+		public IEnumerable<TopThreeProd> GetTopThreePurchasedProducts(int customerId)
+		{
+			SqlParameter p_customerId = new SqlParameter("@CustId", customerId);
+
+			var sqlResult = context.Database.SqlQuery<TopThreeProd>("sp_Reports_TopThreeProductsPurchasedByCustomer @CustId", p_customerId);
+
+			return sqlResult.ToList();
+		}
+
+		public double GetAverageSpentOnInvoice(int customerId)
+		{
+			SqlParameter p_customerId = new SqlParameter("@Customer_Id", customerId);
+
+			double sqlResult = context.Database.ExecuteSqlCommand("sp_Reports_AverageSpentOnInvoicesByCustomer @Customer_Id", p_customerId);
+
+			return sqlResult;
+		}
 	}
 }
