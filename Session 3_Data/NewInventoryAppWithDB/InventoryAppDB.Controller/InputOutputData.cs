@@ -919,13 +919,13 @@ namespace InventoryAppDB.Interfaz
 				line = "";
 			}
 
-			double grandTotal = inventoryLogic.GetInvoicesGrandTotalByCustomerId(customerId);
+			decimal total = inventoryLogic.GetInvoicesGrandTotalByCustomerId(customerId);
 			List<TopThreeProd> listTopThreePurchasedProducts = inventoryLogic.GetTopThreePurchasedProducts(customerId).ToList();
-			double averageSpentOnInvoices = inventoryLogic.GetAverageSpentOnInvoice(customerId);
+			decimal average = inventoryLogic.GetAverageSpentOnInvoice(customerId);
 
-			Console.WriteLine(grandTotal);
-			Console.WriteLine($">>> Grand total: {grandTotal}");
-			Console.WriteLine($">>> Average spent on purchases: {averageSpentOnInvoices}\n");
+			Console.WriteLine();
+			Console.WriteLine($">>> Grand total: {String.Format("{0:C}", total)}");
+			Console.WriteLine($">>> Average spent on purchases: {String.Format("{0:C}", average)}\n");
 
 			header = "PRODUCT ID".PadRight(15) + "PRODUCT".PadRight(22) + "QUANTITY".PadRight(15) + "CATEGORY".PadRight(15);
 
@@ -934,7 +934,7 @@ namespace InventoryAppDB.Interfaz
 			{
 				line += item.ProductId.ToString().PadRight(15);
 				line += item.ProductName.PadRight(22);
-				line += item.Quantity.ToString().PadRight(15);
+				line += item.Total_Quantity.ToString().PadRight(15);
 				line += item.Name.PadRight(15);
 				Console.WriteLine(line);
 				line = "";

@@ -153,31 +153,31 @@ namespace InventoryAppDB.Datos
 			context.SaveChanges();
 		}
 
-		public double GetInvoicesGrandTotalByCustomerId(int customerId)
+		public decimal GetInvoicesGrandTotalByCustomerId(int customerId)
 		{
 			SqlParameter p_customerId = new SqlParameter("@customerId", customerId);
 
-			double sqlResult = context.Database.ExecuteSqlCommand("sp_Reports_SumOfTotalsFromInvoicesOfClient @customerId", p_customerId);
+			decimal sqlResult = context.Database.SqlQuery<decimal>("sp_Reports_SumOfTotalsFromCustomerInvoices @customerId", p_customerId).Single();
 
 			return sqlResult;
 		}
 
 		public IEnumerable<TopThreeProd> GetTopThreePurchasedProducts(int customerId)
 		{
-			SqlParameter p_customerId = new SqlParameter("@CustId", customerId);
+			SqlParameter p_customerId = new SqlParameter("@CustomerId", customerId);
 
-			var sqlResult = context.Database.SqlQuery<TopThreeProd>("sp_Reports_TopThreeProductsPurchasedByCustomer @CustId", p_customerId);
+			var sqlResult = context.Database.SqlQuery<TopThreeProd>("sp_Reports_Top3ProductsPurchasedByCustomer @CustomerId", p_customerId);
 
 			return sqlResult.ToList();
 		}
 
-		public double GetAverageSpentOnInvoice(int customerId)
+		public decimal GetAverageSpentOnInvoice(int customerId)
 		{
-			SqlParameter p_customerId = new SqlParameter("@Customer_Id", customerId);
+			SqlParameter p_customerId = new SqlParameter("@CustomerId", customerId);
 
-			double sqlResult = context.Database.ExecuteSqlCommand("sp_Reports_AverageSpentOnInvoicesByCustomer @Customer_Id", p_customerId);
+			decimal average = context.Database.SqlQuery<decimal>("sp_Reports_AverageSpentOnInvoicesByCustomer2 @CustomerId", p_customerId).Single();
 
-			return sqlResult;
+			return average;
 		}
 	}
 }

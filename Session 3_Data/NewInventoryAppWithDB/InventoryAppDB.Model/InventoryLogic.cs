@@ -113,7 +113,7 @@ namespace InventoryAppDB.Logica
 			datos.RefreshAll();
 		}
 
-		public double GetInvoicesGrandTotalByCustomerId(int customerId)
+		public decimal GetInvoicesGrandTotalByCustomerId(int customerId)
 		{
 			return datos.GetInvoicesGrandTotalByCustomerId(customerId);
 		}
@@ -123,7 +123,7 @@ namespace InventoryAppDB.Logica
 			return datos.GetTopThreePurchasedProducts(customerId);
 		}
 
-		public double GetAverageSpentOnInvoice(int customerId)
+		public decimal GetAverageSpentOnInvoice(int customerId)
 		{
 			return datos.GetAverageSpentOnInvoice(customerId);
 		}

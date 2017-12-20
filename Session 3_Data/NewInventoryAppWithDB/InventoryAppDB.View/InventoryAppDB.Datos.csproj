@@ -97,6 +97,14 @@
     <Compile Include="Migrations\201712192255005_SpGetTotalByCustomerId.Designer.cs">
       <DependentUpon>201712192255005_SpGetTotalByCustomerId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712201739451_Top3ProductsPurchasedByCustomer.cs" />
+    <Compile Include="Migrations\201712201739451_Top3ProductsPurchasedByCustomer.Designer.cs">
+      <DependentUpon>201712201739451_Top3ProductsPurchasedByCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712201758048_AverageSpentOnInvoices.cs" />
+    <Compile Include="Migrations\201712201758048_AverageSpentOnInvoices.Designer.cs">
+      <DependentUpon>201712201758048_AverageSpentOnInvoices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -145,6 +153,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712192255005_SpGetTotalByCustomerId.resx">
       <DependentUpon>201712192255005_SpGetTotalByCustomerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712201739451_Top3ProductsPurchasedByCustomer.resx">
+      <DependentUpon>201712201739451_Top3ProductsPurchasedByCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712201758048_AverageSpentOnInvoices.resx">
+      <DependentUpon>201712201758048_AverageSpentOnInvoices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
