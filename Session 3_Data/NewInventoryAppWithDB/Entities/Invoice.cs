@@ -33,13 +33,4 @@ namespace Entities
 		public string Name { get; set; }
 	}
 
-	//public class SumOfInvoicesTotals
-	//{
-	//	public decimal Total { get; set; }
-	//}
-
-	//public class AverageSpentOnInvoices
-	//{
-	//	public decimal Average { get; set; }
-	//}
 }

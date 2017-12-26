@@ -127,5 +127,15 @@ namespace InventoryAppDB.Logica
 		{
 			return datos.GetAverageSpentOnInvoice(customerId);
 		}
+
+		public void RemoveProductById(int product_Id)
+		{
+			datos.RemoveProductById(product_Id);
+		}
+
+		public void RemoveCustomerById(int customer_Id)
+		{
+			datos.RemoveCustomerById(customer_Id);
+		}
 	}
 }

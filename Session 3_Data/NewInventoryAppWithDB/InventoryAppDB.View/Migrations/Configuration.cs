@@ -31,18 +31,18 @@ namespace InventoryAppDB.View.Migrations
 				);
 
 			context.Products.AddOrUpdate(x => x.ProductId,
-				new Product() { ProductId = 1, ProductName = "Cafe 1820", Price = 1800, AvailQuantity = 500, CategoryId = 6 },
-				new Product() { ProductId = 2, ProductName = "Naranitas", Price = 1500, AvailQuantity = 320, CategoryId = 4 },
-				new Product() { ProductId = 3, ProductName = "Frijoles negros", Price = 750, AvailQuantity = 1100, CategoryId = 4 },
-				new Product() { ProductId = 4, ProductName = "Cremitas", Price = 900, AvailQuantity = 300, CategoryId = 5 }
+				new Product() { ProductId = 1, ProductName = "Cafe 1820", Price = 1800, AvailQuantity = 500, CategoryId = 6, ActiveProduct = true },
+				new Product() { ProductId = 2, ProductName = "Naranitas", Price = 1500, AvailQuantity = 320, CategoryId = 4, ActiveProduct = true },
+				new Product() { ProductId = 3, ProductName = "Frijoles negros", Price = 750, AvailQuantity = 1100, CategoryId = 4, ActiveProduct = true },
+				new Product() { ProductId = 4, ProductName = "Cremitas", Price = 900, AvailQuantity = 300, CategoryId = 5, ActiveProduct = true }
 				);
 
 			context.Customers.AddOrUpdate(x => x.CustomerId,
-				new Customer() { CustomerId = 1, FirstName = "Juan", LastName = "Valdez", Telephone = "22224545", Email = "juan.valdez@hotmail.com" },
-				new Customer() { CustomerId = 2, FirstName = "Ana", LastName = "Rogriguez", Telephone = "89568956", Email = "ana.rodriguezz@gmail.com" },
-				new Customer() { CustomerId = 3, FirstName = "Mirna", LastName = "Pereira", Telephone = "42554255", Email = "mirna.p.1987@yahoo.com" },
-				new Customer() { CustomerId = 4, FirstName = "Concepcion", LastName = "Soto", Telephone = "88881111", Email = "concepcion@gmail.com" },
-				new Customer() { CustomerId = 5, FirstName = "Carlos", LastName = "Sanchez", Telephone = "22334455", Email = "carlossanchez2000@gmail.com" }
+				new Customer() { CustomerId = 1, FirstName = "Juan", LastName = "Valdez", Telephone = "22224545", Email = "juan.valdez@hotmail.com", ActiveCustomer = true },
+				new Customer() { CustomerId = 2, FirstName = "Ana", LastName = "Rogriguez", Telephone = "89568956", Email = "ana.rodriguezz@gmail.com", ActiveCustomer = true },
+				new Customer() { CustomerId = 3, FirstName = "Mirna", LastName = "Pereira", Telephone = "42554255", Email = "mirna.p.1987@yahoo.com", ActiveCustomer = true },
+				new Customer() { CustomerId = 4, FirstName = "Concepcion", LastName = "Soto", Telephone = "88881111", Email = "concepcion@gmail.com", ActiveCustomer = true },
+				new Customer() { CustomerId = 5, FirstName = "Carlos", LastName = "Sanchez", Telephone = "22334455", Email = "carlossanchez2000@gmail.com", ActiveCustomer = true }
 				);
 
 			context.Invoices.AddOrUpdate(x => x.InvoiceId,

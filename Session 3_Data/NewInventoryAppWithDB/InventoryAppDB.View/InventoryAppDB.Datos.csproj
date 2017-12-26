@@ -105,6 +105,18 @@
     <Compile Include="Migrations\201712201758048_AverageSpentOnInvoices.Designer.cs">
       <DependentUpon>201712201758048_AverageSpentOnInvoices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712261921486_AddedActiveProductAndActiveCustomerToEntities.cs" />
+    <Compile Include="Migrations\201712261921486_AddedActiveProductAndActiveCustomerToEntities.Designer.cs">
+      <DependentUpon>201712261921486_AddedActiveProductAndActiveCustomerToEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712261948370_SpDeactivateProduct.cs" />
+    <Compile Include="Migrations\201712261948370_SpDeactivateProduct.Designer.cs">
+      <DependentUpon>201712261948370_SpDeactivateProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712262012356_SpDeactivateCustomer.cs" />
+    <Compile Include="Migrations\201712262012356_SpDeactivateCustomer.Designer.cs">
+      <DependentUpon>201712262012356_SpDeactivateCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -159,6 +171,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712201758048_AverageSpentOnInvoices.resx">
       <DependentUpon>201712201758048_AverageSpentOnInvoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261921486_AddedActiveProductAndActiveCustomerToEntities.resx">
+      <DependentUpon>201712261921486_AddedActiveProductAndActiveCustomerToEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261948370_SpDeactivateProduct.resx">
+      <DependentUpon>201712261948370_SpDeactivateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712262012356_SpDeactivateCustomer.resx">
+      <DependentUpon>201712262012356_SpDeactivateCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

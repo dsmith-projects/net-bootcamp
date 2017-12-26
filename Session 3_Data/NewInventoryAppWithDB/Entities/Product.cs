@@ -24,5 +24,7 @@ namespace Entities
 
 		public virtual Category Category { get; set; }
 
+		public bool ActiveProduct { get; set; }
+
 	}
 }

@@ -20,6 +20,6 @@ namespace Entities
 
 		public string Email { get; set; }
 
-		//public virtual IEnumerable<Invoice> Invoices { get; set; }
+		public bool ActiveCustomer { get; set; }
 	}
 }

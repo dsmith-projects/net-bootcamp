@@ -16,14 +16,24 @@ namespace InventoryAppDB.Datos
 
 		public IEnumerable<Product> ListInventoryItems()
 		{
-			//InventoryDBContext context = new InventoryDBContext();
-			//context.Customers.Include(x => x.);
-			return context.Products.ToList();
+			//IEnumerable<Product> listActiveProducts = context.Products.ToList();
+			
+			var activeProducts = 
+				from c in context.Products
+				where c.ActiveProduct == true
+				select c;
+			return activeProducts;
+			//return context.Products.ToList();
 		}
 
 		public IEnumerable<Customer> ListCustomers()
-		{			
-			return context.Customers.ToList();
+		{
+			var activeCustomers =
+				from c in context.Customers
+				where c.ActiveCustomer == true
+				select c;
+			return activeCustomers;
+			//return context.Customers.ToList();
 		}
 
 		public IEnumerable<Category> ListCategories()
@@ -178,6 +188,22 @@ namespace InventoryAppDB.Datos
 			decimal average = context.Database.SqlQuery<decimal>("sp_Reports_AverageSpentOnInvoicesByCustomer2 @CustomerId", p_customerId).Single();
 
 			return average;
+		}
+
+		public void RemoveProductById(int product_Id)
+		{
+			SqlParameter p_productId = new SqlParameter("@ProductId", product_Id);
+
+			context.Database.ExecuteSqlCommand("sp_Products_DeactivateProduct @ProductId", p_productId);
+			context.SaveChanges();
+		}
+
+		public void RemoveCustomerById(int customer_Id)
+		{
+			SqlParameter p_customerId = new SqlParameter("@CustomerId", customer_Id);
+
+			context.Database.ExecuteSqlCommand("sp_Customers_DeactivateCustomer @CustomerId", p_customerId);
+			context.SaveChanges();
 		}
 	}
 }

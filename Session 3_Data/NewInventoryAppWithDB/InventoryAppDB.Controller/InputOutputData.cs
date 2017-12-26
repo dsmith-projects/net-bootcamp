@@ -139,6 +139,7 @@ namespace InventoryAppDB.Interfaz
 			decimal price = 0;
 			int quantity = 0;
 			int category = 0;
+			bool activeProduct = true;
 
 			Console.WriteLine("Please provide the following information:\n");
 
@@ -157,7 +158,8 @@ namespace InventoryAppDB.Interfaz
 				ProductName = productName,
 				Price = price,
 				AvailQuantity = quantity,
-				CategoryId = category
+				CategoryId = category,
+				ActiveProduct = activeProduct
 			};
 
 			return newProduct;
@@ -378,17 +380,10 @@ namespace InventoryAppDB.Interfaz
 		}
 
 		public void RemoveProductById(int productId)
-		{
-			int product_Id;
-
-			// To do: remove product by id
-			Console.WriteLine("Removing product by id...");
-						
-			ListInventoryItems();
-
-			product_Id = GetProductId();
-
-			// to do: set product as inactive
+		{			
+			Console.WriteLine(">>> Removing product by id...\n");
+			inventoryLogic.RemoveProductById(productId);
+			Console.WriteLine(">>> Product successfully removed from inventory");
 		}
 
 		public int GetProductId()
@@ -499,6 +494,7 @@ namespace InventoryAppDB.Interfaz
 			string lastName = "";
 			string telephone = "";
 			string email = "";
+			bool activeCustomer = true;
 
 			Console.WriteLine("Please provide the following information:\n");
 
@@ -512,7 +508,8 @@ namespace InventoryAppDB.Interfaz
 				FirstName = firstName,
 				LastName = lastName,
 				Telephone = telephone,
-				Email = email
+				Email = email,
+				ActiveCustomer = activeCustomer
 			};
 
 
@@ -715,8 +712,9 @@ namespace InventoryAppDB.Interfaz
 
 		public void RemoveCustomerById(int customerId)
 		{
-			// Remove customer by Id
-			Console.WriteLine("To do - remove customer by id");
+			Console.WriteLine(">>> Removing customer by id...\n");
+			inventoryLogic.RemoveCustomerById(customerId);
+			Console.WriteLine(">>> Customer successfully removed from database");
 		}
 
 
@@ -926,7 +924,7 @@ namespace InventoryAppDB.Interfaz
 			Console.WriteLine();
 			Console.WriteLine($">>> Grand total: {String.Format("{0:C}", total)}");
 			Console.WriteLine($">>> Average spent on purchases: {String.Format("{0:C}", average)}\n");
-
+ 
 			header = "PRODUCT ID".PadRight(15) + "PRODUCT".PadRight(22) + "QUANTITY".PadRight(15) + "CATEGORY".PadRight(15);
 
 			Console.WriteLine(header);
