@@ -21,18 +21,45 @@ namespace InventoryAppDB.Interfaz
 			const int LAST_MENU_OPTION_ADMIN = 9;
 			const int LAST_MENU_OPTION_USER = 5;
 
-			// Verify if account is locked
-			// if not locked do
 			bool locked = false;
 			bool salir = false;
 			int option = 0;
+			int numberAttempts = 0;
+			string username = "";
+			string password = "";
+			bool correctCredentials = false;
+			bool isAdmin = false;
 
+			// Verify if account is locked, if not locked do
 			if (!locked)
 			{
+				do
+				{
+					// Request username
+					username = ioData.RequestUsername();
+					// Request password
+					password = ioData.RequestPassword();
+					// Verify username and password against DB to see if user exists
+					// If user exists verify if user is admin or regular user
+					correctCredentials = ioData.VerifyCredentialsAreCorrect(username, password);
+
+					if (!correctCredentials)
+					{
+						ioData.DisplayMessageIncorrectCredentials(numberAttempts);
+						numberAttempts++;
+					}
+					else
+					{
+						isAdmin = ioData.UserIsAdmin(username, password);
+					}					
+				} while (!correctCredentials && numberAttempts < 3);
+
 				// Welcome the user 
 				ioData.WelcomeUser();
+				
+				
 
-				if (args.Length == 0)
+				if (!isAdmin)
 				{
 					ioData.LoginMessageUser();
 
@@ -91,87 +118,83 @@ namespace InventoryAppDB.Interfaz
 						} 
 					} while (!salir);
 				}
-				else if (args.Length == 1)
+				else if (isAdmin)
 				{
-					if (args[0].ToLower() == "admin")
-					{
-						ioData.LoginMessageAdmin();
+					//if (args[0].ToLower() == "admin")
+					//{
+					ioData.LoginMessageAdmin();
 
-						do
+					do
+					{
+						//Console.WriteLine("1 argument: admin");							
+						ioData.DisplayAdminMenu();
+						option = ioData.ChooseAnOption(LAST_MENU_OPTION_ADMIN);
+
+						int customerId = -1;
+						int productId = -1;
+
+						switch (option)
 						{
-							//Console.WriteLine("1 argument: admin");							
-							ioData.DisplayAdminMenu();
-							option = ioData.ChooseAnOption(LAST_MENU_OPTION_ADMIN);
-
-							int customerId = -1;
-							int productId = -1;
-
-							switch (option)
-							{
-								case 1:
-									ioData.DisplayMessageToListProductsInInventory();
-									ioData.ListInventoryItems();
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 2:
-									ioData.DisplayMessageToAddNewProduct();
-									Product newProduct = ioData.CreateNewProduct();
-									ioData.AddNewProduct(newProduct);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 3:
-									ioData.DisplayMessageToEditProductSupplies();									
-									ioData.ListInventoryItems();
-									productId = ioData.DisplayMessageToChooseProduct();
-									ioData.ModifyProductAvailableSupplies(productId);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 4:
-									// Remove product from inventory
-									// Que pasa si se queire eliminar un producto que ya esta en un invoice
-									ioData.DisplayMessageToDeleteProduct();
-									ioData.ListInventoryItems();
-									productId = ioData.DisplayMessageToChooseProduct();
-									ioData.RemoveProductById(productId);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 5:
-									ioData.DisplayMessageToCreateNewCategory();
-									Category newCategory = ioData.CreateNewProductCategory();
-									ioData.AddNewCategory(newCategory);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 6:
-									ioData.DisplayMessageToAddNewCustomer();
-									Customer newCustomer = ioData.CreateNewCustomer();
-									ioData.AddNewCustomer(newCustomer);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 7:
-									ioData.DisplayMessageToEditCustomer();
-									ioData.DisplayCustomers();
-									customerId = ioData.DisplayMessageToChooseCustomer();
-									ioData.EditCustomerInfo(customerId);
-									ioData.PressAnyKeyToContinue();
-									break;
-								case 8:
-									ioData.DisplayMessageToDeleteCustomer();
-									ioData.DisplayCustomers();
-									customerId = ioData.DisplayMessageToChooseCustomer();
-									ioData.RemoveCustomerById(customerId);
-									ioData.PressAnyKeyToContinue();
-									break;
-								default:
-									salir = true;
-									ioData.DisplayExitMessage();
-									break;
-							} 
-						} while (!salir);
-					}
-					else
-					{
-						ioData.DisplayInitializationParameterError();
-					}
+							case 1:
+								ioData.DisplayMessageToListProductsInInventory();
+								ioData.ListInventoryItems();
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 2:
+								ioData.DisplayMessageToAddNewProduct();
+								Product newProduct = ioData.CreateNewProduct();
+								ioData.AddNewProduct(newProduct);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 3:
+								ioData.DisplayMessageToEditProductSupplies();									
+								ioData.ListInventoryItems();
+								productId = ioData.DisplayMessageToChooseProduct();
+								ioData.ModifyProductAvailableSupplies(productId);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 4:
+								// Remove product from inventory
+								// Que pasa si se queire eliminar un producto que ya esta en un invoice
+								ioData.DisplayMessageToDeleteProduct();
+								ioData.ListInventoryItems();
+								productId = ioData.DisplayMessageToChooseProduct();
+								ioData.RemoveProductById(productId);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 5:
+								ioData.DisplayMessageToCreateNewCategory();
+								Category newCategory = ioData.CreateNewProductCategory();
+								ioData.AddNewCategory(newCategory);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 6:
+								ioData.DisplayMessageToAddNewCustomer();
+								Customer newCustomer = ioData.CreateNewCustomer();
+								ioData.AddNewCustomer(newCustomer);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 7:
+								ioData.DisplayMessageToEditCustomer();
+								ioData.DisplayCustomers();
+								customerId = ioData.DisplayMessageToChooseCustomer();
+								ioData.EditCustomerInfo(customerId);
+								ioData.PressAnyKeyToContinue();
+								break;
+							case 8:
+								ioData.DisplayMessageToDeleteCustomer();
+								ioData.DisplayCustomers();
+								customerId = ioData.DisplayMessageToChooseCustomer();
+								ioData.RemoveCustomerById(customerId);
+								ioData.PressAnyKeyToContinue();
+								break;
+							default:
+								salir = true;
+								ioData.DisplayExitMessage();
+								break;
+						} 
+					} while (!salir);
+					
 				}
 				else
 				{

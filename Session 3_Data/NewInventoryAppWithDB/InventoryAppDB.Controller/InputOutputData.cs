@@ -15,6 +15,39 @@ namespace InventoryAppDB.Interfaz
 	{
 		static InventoryLogic inventoryLogic = new InventoryLogic();
 
+		public string RequestUsername()
+		{
+			Console.Write("Username: ");
+			string username = Console.ReadLine();
+			return username;
+		}
+
+		public string RequestPassword()
+		{
+			Console.Write("Password: ");
+			string password = Console.ReadLine();
+			return password;
+		}
+
+		public bool VerifyCredentialsAreCorrect(string username, string password)
+		{
+			// to do
+			return true;
+		}
+
+		public void DisplayMessageIncorrectCredentials(int numberAttempts)
+		{
+			Console.Write("Incorrect username or password. ");
+			Console.WriteLine("You have {0} attempts left.", numberAttempts);
+		}
+
+		public bool UserIsAdmin(string username, string password)
+		{
+			// to -  do
+			return true;
+		}
+
+
 		public void WelcomeUser()
 		{
 			Console.WriteLine("WELCOME TO THE INVENTORY PROGRAM\n");
