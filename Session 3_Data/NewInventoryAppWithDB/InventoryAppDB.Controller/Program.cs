@@ -24,7 +24,7 @@ namespace InventoryAppDB.Interfaz
 			bool locked = false;
 			bool salir = false;
 			int option = 0;
-			int numberAttempts = 0;
+			int numberAttempts = 2;
 			string username = "";
 			string password = "";
 			bool correctCredentials = false;
@@ -33,6 +33,7 @@ namespace InventoryAppDB.Interfaz
 			// Verify if account is locked, if not locked do
 			if (!locked)
 			{
+				ioData.DisplayLoginMessage();
 				do
 				{
 					// Request username
@@ -41,168 +42,172 @@ namespace InventoryAppDB.Interfaz
 					password = ioData.RequestPassword();
 					// Verify username and password against DB to see if user exists
 					// If user exists verify if user is admin or regular user
-					correctCredentials = ioData.VerifyCredentialsAreCorrect(username, password);
+					User user = ioData.RetrieveUser(username, password);
+					correctCredentials = ioData.VerifyCredentialsAreCorrect(user);
 
 					if (!correctCredentials)
 					{
 						ioData.DisplayMessageIncorrectCredentials(numberAttempts);
-						numberAttempts++;
+						numberAttempts--;
 					}
 					else
 					{
-						isAdmin = ioData.UserIsAdmin(username, password);
+						isAdmin = ioData.UserIsAdmin(user);
+
+						//Clear screen
+						ioData.PressAnyKeyToContinue();
+
+						// Welcome the user 
+						ioData.WelcomeUser();
+
+						if (!isAdmin)
+						{
+							ioData.LoginMessageUser();
+
+							do
+							{
+								ioData.DisplayUserMenu();
+								option = ioData.ChooseAnOption(LAST_MENU_OPTION_USER);
+								//Console.WriteLine("Option chosen is {0}", option);
+
+								int customerId = -1;
+								//int productId = -1;
+								//int quantityRequested = 0;
+								string startDate;
+								string endDate;
+								bool validStartDate;
+								bool validEndDate;
+								//string purchaseDate = "";
+
+								switch (option)
+								{
+									case 1:
+										ioData.DisplayMessageToListProductsInInventory();
+										ioData.ListInventoryItems();
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 2:
+										ioData.DisplayMessageToCreateNewInvoice();
+										ioData.DisplayCustomers();
+										customerId = ioData.DisplayMessageToChooseCustomer();
+										Invoice newInvoice = ioData.CreateNewInvoice(customerId);
+										//ioData.DisplayMessageToChooseProducts();
+										ioData.AddNewInvoice(newInvoice);
+										ioData.AddProductsToInvoice();
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 3:
+										ioData.DisplayMessageToGenerateInvoicesReportByDates();
+										startDate = ioData.RequestDate("Please provide start date. ");
+										validStartDate = ioData.ValidateDate(startDate);
+										endDate = ioData.RequestDate("Please provide end date. ");
+										validEndDate = ioData.ValidateDate(endDate);
+										ioData.GenerateInvoiceReportFromDatesRange(startDate, endDate, validStartDate, validEndDate);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 4:
+										ioData.DisplayMessageToGenerateInvoicesReportByCustomerId();
+										ioData.DisplayCustomers();
+										customerId = ioData.DisplayMessageToChooseCustomer();
+										ioData.GenerateInvoiceReportByCustomerId(customerId);
+										ioData.PressAnyKeyToContinue();
+										break;
+									default:
+										salir = true;
+										ioData.DisplayExitMessage();
+										break;
+								}
+							} while (!salir);
+						}
+						else if (isAdmin)
+						{
+							ioData.LoginMessageAdmin();
+
+							do
+							{							
+								ioData.DisplayAdminMenu();
+								option = ioData.ChooseAnOption(LAST_MENU_OPTION_ADMIN);
+
+								int customerId = -1;
+								int productId = -1;
+
+								switch (option)
+								{
+									case 1:
+										ioData.DisplayMessageToListProductsInInventory();
+										ioData.ListInventoryItems();
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 2:
+										ioData.DisplayMessageToAddNewProduct();
+										Product newProduct = ioData.CreateNewProduct();
+										ioData.AddNewProduct(newProduct);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 3:
+										ioData.DisplayMessageToEditProductSupplies();
+										ioData.ListInventoryItems();
+										productId = ioData.DisplayMessageToChooseProduct();
+										ioData.ModifyProductAvailableSupplies(productId);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 4:
+										// Remove product from inventory
+										// Que pasa si se queire eliminar un producto que ya esta en un invoice
+										ioData.DisplayMessageToDeleteProduct();
+										ioData.ListInventoryItems();
+										productId = ioData.DisplayMessageToChooseProduct();
+										ioData.RemoveProductById(productId);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 5:
+										ioData.DisplayMessageToCreateNewCategory();
+										Category newCategory = ioData.CreateNewProductCategory();
+										ioData.AddNewCategory(newCategory);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 6:
+										ioData.DisplayMessageToAddNewCustomer();
+										Customer newCustomer = ioData.CreateNewCustomer();
+										ioData.AddNewCustomer(newCustomer);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 7:
+										ioData.DisplayMessageToEditCustomer();
+										ioData.DisplayCustomers();
+										customerId = ioData.DisplayMessageToChooseCustomer();
+										ioData.EditCustomerInfo(customerId);
+										ioData.PressAnyKeyToContinue();
+										break;
+									case 8:
+										ioData.DisplayMessageToDeleteCustomer();
+										ioData.DisplayCustomers();
+										customerId = ioData.DisplayMessageToChooseCustomer();
+										ioData.RemoveCustomerById(customerId);
+										ioData.PressAnyKeyToContinue();
+										break;
+									default:
+										salir = true;
+										ioData.DisplayExitMessage();
+										break;
+								}
+							} while (!salir);
+
+						}
+						else
+						{
+							ioData.DisplayInitializationParameterError();
+						}
 					}					
-				} while (!correctCredentials && numberAttempts < 3);
-
-				// Welcome the user 
-				ioData.WelcomeUser();
+				} while (!correctCredentials && numberAttempts >= 0);
 				
-				
-
-				if (!isAdmin)
+				if (numberAttempts < 0)
 				{
-					ioData.LoginMessageUser();
-
-					do
-					{
-						ioData.DisplayUserMenu();
-						option = ioData.ChooseAnOption(LAST_MENU_OPTION_USER);
-						//Console.WriteLine("Option chosen is {0}", option);
-
-						int customerId = -1;
-						//int productId = -1;
-						//int quantityRequested = 0;
-						string startDate;
-						string endDate;
-						bool validStartDate;
-						bool validEndDate;
-						//string purchaseDate = "";
-
-						switch (option)
-						{
-							case 1:
-								ioData.DisplayMessageToListProductsInInventory();
-								ioData.ListInventoryItems();
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 2:
-								ioData.DisplayMessageToCreateNewInvoice();								
-								ioData.DisplayCustomers();
-								customerId = ioData.DisplayMessageToChooseCustomer();							
-								Invoice newInvoice = ioData.CreateNewInvoice(customerId);
-								//ioData.DisplayMessageToChooseProducts();
-								ioData.AddNewInvoice(newInvoice);
-								ioData.AddProductsToInvoice();
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 3:
-								ioData.DisplayMessageToGenerateInvoicesReportByDates();
-								startDate = ioData.RequestDate("Please provide start date. ");
-								validStartDate = ioData.ValidateDate(startDate);
-								endDate = ioData.RequestDate("Please provide end date. ");
-								validEndDate = ioData.ValidateDate(endDate);								
-								ioData.GenerateInvoiceReportFromDatesRange(startDate, endDate, validStartDate, validEndDate);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 4:
-								ioData.DisplayMessageToGenerateInvoicesReportByCustomerId();
-								ioData.DisplayCustomers();
-								customerId = ioData.DisplayMessageToChooseCustomer();
-								ioData.GenerateInvoiceReportByCustomerId(customerId);
-								ioData.PressAnyKeyToContinue();
-								break;
-							default:
-								salir = true;
-								ioData.DisplayExitMessage();
-								break;
-						} 
-					} while (!salir);
-				}
-				else if (isAdmin)
-				{
-					//if (args[0].ToLower() == "admin")
-					//{
-					ioData.LoginMessageAdmin();
-
-					do
-					{
-						//Console.WriteLine("1 argument: admin");							
-						ioData.DisplayAdminMenu();
-						option = ioData.ChooseAnOption(LAST_MENU_OPTION_ADMIN);
-
-						int customerId = -1;
-						int productId = -1;
-
-						switch (option)
-						{
-							case 1:
-								ioData.DisplayMessageToListProductsInInventory();
-								ioData.ListInventoryItems();
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 2:
-								ioData.DisplayMessageToAddNewProduct();
-								Product newProduct = ioData.CreateNewProduct();
-								ioData.AddNewProduct(newProduct);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 3:
-								ioData.DisplayMessageToEditProductSupplies();									
-								ioData.ListInventoryItems();
-								productId = ioData.DisplayMessageToChooseProduct();
-								ioData.ModifyProductAvailableSupplies(productId);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 4:
-								// Remove product from inventory
-								// Que pasa si se queire eliminar un producto que ya esta en un invoice
-								ioData.DisplayMessageToDeleteProduct();
-								ioData.ListInventoryItems();
-								productId = ioData.DisplayMessageToChooseProduct();
-								ioData.RemoveProductById(productId);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 5:
-								ioData.DisplayMessageToCreateNewCategory();
-								Category newCategory = ioData.CreateNewProductCategory();
-								ioData.AddNewCategory(newCategory);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 6:
-								ioData.DisplayMessageToAddNewCustomer();
-								Customer newCustomer = ioData.CreateNewCustomer();
-								ioData.AddNewCustomer(newCustomer);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 7:
-								ioData.DisplayMessageToEditCustomer();
-								ioData.DisplayCustomers();
-								customerId = ioData.DisplayMessageToChooseCustomer();
-								ioData.EditCustomerInfo(customerId);
-								ioData.PressAnyKeyToContinue();
-								break;
-							case 8:
-								ioData.DisplayMessageToDeleteCustomer();
-								ioData.DisplayCustomers();
-								customerId = ioData.DisplayMessageToChooseCustomer();
-								ioData.RemoveCustomerById(customerId);
-								ioData.PressAnyKeyToContinue();
-								break;
-							default:
-								salir = true;
-								ioData.DisplayExitMessage();
-								break;
-						} 
-					} while (!salir);
-					
-				}
-				else
-				{
-					ioData.DisplayInitializationParameterError();
+					ioData.DisplayMessageLockedAccount();
 				}
 			}
 
-			Console.ReadKey();
+			//Console.ReadKey();
 		}
 
 

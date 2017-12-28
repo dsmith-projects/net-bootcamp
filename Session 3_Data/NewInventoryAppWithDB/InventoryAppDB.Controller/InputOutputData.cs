@@ -14,6 +14,11 @@ namespace InventoryAppDB.Interfaz
 	public class InputOutputData
 	{
 		static InventoryLogic inventoryLogic = new InventoryLogic();
+		
+		public void DisplayLoginMessage()
+		{
+			Console.WriteLine(">>> Please log in: \n");
+		}
 
 		public string RequestUsername()
 		{
@@ -29,22 +34,43 @@ namespace InventoryAppDB.Interfaz
 			return password;
 		}
 
-		public bool VerifyCredentialsAreCorrect(string username, string password)
+		public User RetrieveUser(string username, string password)
 		{
-			// to do
+			User user = inventoryLogic.RetrieveUser(username, password);
+			return user;
+		}
+
+		public bool VerifyCredentialsAreCorrect(User user)
+		{
+			//Console.WriteLine("User: {0}", user);
+			if (user == null)
+			{
+				//Console.WriteLine("Is null!!!!");
+				return false;
+			}
 			return true;
 		}
 
 		public void DisplayMessageIncorrectCredentials(int numberAttempts)
 		{
-			Console.Write("Incorrect username or password. ");
+			Console.Write("\nIncorrect username or password. ");
 			Console.WriteLine("You have {0} attempts left.", numberAttempts);
+			Console.WriteLine();
 		}
 
-		public bool UserIsAdmin(string username, string password)
+		public bool UserIsAdmin(User user)
 		{
-			// to -  do
-			return true;
+			return user.IsAdmin;
+		}
+
+		public void DisplayMessageLockedAccount()
+		{
+			Console.WriteLine();
+			Console.WriteLine(">>> The program has been locked. You reached the maximum number of attempts!");
+			Console.WriteLine();
+			Console.WriteLine(">>> Press any key to exit");
+			Console.ReadKey();
+			Console.Clear();
 		}
 
 

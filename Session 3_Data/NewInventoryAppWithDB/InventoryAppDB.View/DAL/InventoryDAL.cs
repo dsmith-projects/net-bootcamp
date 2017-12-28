@@ -14,6 +14,23 @@ namespace InventoryAppDB.Datos
 	{
 		InventoryDBContext context = new InventoryDBContext();
 
+		public User RetrieveUser(string username, string password)
+		{
+			//var user =
+			//	from c in context.Users
+			//	where c.Name == username
+			//	where c.Password == password
+			//	select c;
+			//return user;
+
+			SqlParameter p_user = new SqlParameter("@Name", username);
+			SqlParameter p_password = new SqlParameter("@Password", password);
+
+			var sqlResult = context.Database.SqlQuery<User>("sp_Users_RetrieveUser @Name, @Password", p_user, p_password).SingleOrDefault();
+
+			return sqlResult;
+		}
+
 		public IEnumerable<Product> ListInventoryItems()
 		{
 			//IEnumerable<Product> listActiveProducts = context.Products.ToList();
@@ -118,11 +135,6 @@ namespace InventoryAppDB.Datos
 		{
 			context.Categories.Add(category);
 			context.SaveChanges();
-		}
-
-		public void DeleteProductById(int productId)
-		{
-			// to do 
 		}
 
 		public Customer RetrieveCustomerById(int customerId)

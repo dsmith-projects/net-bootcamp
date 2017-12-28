@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201712262012356_SpDeactivateCustomer.Designer.cs">
       <DependentUpon>201712262012356_SpDeactivateCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712282027411_SpRetrieveUser.cs" />
+    <Compile Include="Migrations\201712282027411_SpRetrieveUser.Designer.cs">
+      <DependentUpon>201712282027411_SpRetrieveUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -180,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712262012356_SpDeactivateCustomer.resx">
       <DependentUpon>201712262012356_SpDeactivateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712282027411_SpRetrieveUser.resx">
+      <DependentUpon>201712282027411_SpRetrieveUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,11 @@ namespace InventoryAppDB.Logica
     {
 		InventoryDAL datos = new InventoryDAL();
 
+		public User RetrieveUser(string username, string password)
+		{
+			return datos.RetrieveUser(username, password);
+		}
+
 		public IEnumerable<Product> ListInventoryItems()
 		{
 			//InventoryDAL datos = new InventoryDAL();
@@ -137,5 +142,6 @@ namespace InventoryAppDB.Logica
 		{
 			datos.RemoveCustomerById(customer_Id);
 		}
+
 	}
 }
