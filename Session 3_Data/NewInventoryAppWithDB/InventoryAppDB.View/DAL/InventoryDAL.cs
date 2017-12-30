@@ -31,6 +31,8 @@ namespace InventoryAppDB.Datos
 			return sqlResult;
 		}
 
+		
+
 		public IEnumerable<Product> ListInventoryItems()
 		{
 			//IEnumerable<Product> listActiveProducts = context.Products.ToList();

@@ -27,6 +27,7 @@ namespace InventoryAppDB.Interfaz
 			int numberAttempts = 2;
 			string username = "";
 			string password = "";
+			string encryptedPassword = "";
 			bool correctCredentials = false;
 			bool isAdmin = false;
 
@@ -40,9 +41,10 @@ namespace InventoryAppDB.Interfaz
 					username = ioData.RequestUsername();
 					// Request password
 					password = ioData.RequestPassword();
+					encryptedPassword = ioData.EncryptPassword(password);
 					// Verify username and password against DB to see if user exists
 					// If user exists verify if user is admin or regular user
-					User user = ioData.RetrieveUser(username, password);
+					User user = ioData.RetrieveUser(username, encryptedPassword);
 					correctCredentials = ioData.VerifyCredentialsAreCorrect(user);
 
 					if (!correctCredentials)

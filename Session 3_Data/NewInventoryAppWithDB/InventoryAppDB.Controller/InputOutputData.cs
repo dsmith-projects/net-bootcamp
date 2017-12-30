@@ -34,6 +34,16 @@ namespace InventoryAppDB.Interfaz
 			return password;
 		}
 
+		public string EncryptPassword(string password)
+		{
+			string encryptedPass = "";
+			byte[] hash = new byte[password.Length];
+			hash = Encoding.UTF8.GetBytes(password);
+			encryptedPass = Convert.ToBase64String(hash);
+			Console.WriteLine("encryptedPass: {0}", encryptedPass);
+			return encryptedPass;
+		}
+
 		public User RetrieveUser(string username, string password)
 		{
 			User user = inventoryLogic.RetrieveUser(username, password);

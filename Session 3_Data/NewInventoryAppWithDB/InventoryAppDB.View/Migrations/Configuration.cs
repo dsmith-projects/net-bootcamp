@@ -61,11 +61,11 @@ namespace InventoryAppDB.View.Migrations
 				);
 
 			context.Users.AddOrUpdate(x => x.UserId,
-				new User() { UserId = 1, Name = "David", Password = "admin123", IsAdmin = true },
-				new User() { UserId = 2, Name = "Steph", Password = "admin123", IsAdmin = true },
-				new User() { UserId = 3, Name = "Mitch", Password = "user", IsAdmin = false },
-				new User() { UserId = 4, Name = "Martha", Password = "user", IsAdmin = false },
-				new User() { UserId = 5, Name = "Christian", Password = "user", IsAdmin = false }
+				new User() { UserId = 1, Name = "David", Password = "YWRtaW4xMjM=", IsAdmin = true },
+				new User() { UserId = 2, Name = "Steph", Password = "YWRtaW4xMjM=", IsAdmin = true },
+				new User() { UserId = 3, Name = "Mitch", Password = "dXNlcg==", IsAdmin = false },
+				new User() { UserId = 4, Name = "Martha", Password = "dXNlcg==", IsAdmin = false },
+				new User() { UserId = 5, Name = "Christian", Password = "dXNlcg==", IsAdmin = false }
 				);
 
 			context.SaveChanges();
