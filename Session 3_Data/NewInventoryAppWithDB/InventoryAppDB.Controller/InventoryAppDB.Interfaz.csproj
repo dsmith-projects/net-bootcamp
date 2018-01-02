@@ -50,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InputOutputData.cs" />
+    <Compile Include="InputOutputMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InputOutputMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,6 +73,12 @@
       <Project>{15740e9f-cd7a-432c-9455-33579390eb82}</Project>
       <Name>InventoryAppDB.Logica</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InputOutputMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InputOutputMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

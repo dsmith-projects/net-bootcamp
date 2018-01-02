@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using InventoryAppDB.Logica;
 using Entities;
 using System.Text.RegularExpressions;
-using System.Data.SqlClient;
 using System.Globalization;
+using System.Resources;
 
 namespace InventoryAppDB.Interfaz
 {
 	public class InputOutputData
 	{
 		static InventoryLogic inventoryLogic = new InventoryLogic();
+
+		//ResourceManager rm = new ResourceManager("InputOutputMessages", typeof(Example).Assembly);
 		
 		public void DisplayLoginMessage()
 		{

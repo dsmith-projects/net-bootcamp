@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using InventoryAppDB.Datos;
-using InventoryAppDB.Logica;
-using InventoryAppDB.Interfaz;
+﻿using InventoryAppDB.Logica;
 using Entities;
+using System;
+using System.Resources;
 
 namespace InventoryAppDB.Interfaz
 {
@@ -17,6 +11,9 @@ namespace InventoryAppDB.Interfaz
 		{
 			InputOutputData ioData = new InputOutputData();
 			AuthenticateAdmin authAdmin = new AuthenticateAdmin();
+			
+
+			//ResourceManager rm = new ResourceManager
 
 			const int LAST_MENU_OPTION_ADMIN = 9;
 			const int LAST_MENU_OPTION_USER = 5;
