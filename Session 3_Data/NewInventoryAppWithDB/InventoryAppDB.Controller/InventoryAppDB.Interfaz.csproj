@@ -50,11 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InputOutputData.cs" />
-    <Compile Include="InputOutputMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InputOutputMessages.resx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,10 +70,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="InputOutputMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>InputOutputMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="IOstrings.txt" />
+    <None Include="Resources\IOstrings.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

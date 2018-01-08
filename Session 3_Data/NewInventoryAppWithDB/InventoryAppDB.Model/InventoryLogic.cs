@@ -112,6 +112,42 @@ namespace InventoryAppDB.Logica
 			return datos.RetrieveCustomerById(customerId);
 		}
 
+		public Category GetFirstCategoryInserted()
+		{
+			Category firstCategory = datos.GetFirstCategoryInserted();
+			return firstCategory;
+		}		
+
+		public Category GetLastCategoryInserted()
+		{
+			Category lastCategory = datos.GetLastCategoryInserted();
+			return lastCategory;
+		}
+
+		public Product GetFirstProductInserted()
+		{
+			Product firstProduct = datos.GetFirstProductInserted();
+			return firstProduct;
+		}
+
+		public Product GetLastProductInserted()
+		{
+			Product LastProduct = datos.GetLastProductInserted();
+			return LastProduct;
+		}
+
+		public Customer GetFirstCustomerInserted()
+		{
+			Customer firstCustomer = datos.GetFirstCustomerInserted();
+			return firstCustomer;
+		}
+
+		public Customer GetLastCustomerInserted()
+		{
+			Customer LastCustomer = datos.GetLastCustomerInserted();
+			return LastCustomer;
+		}
+
 		public void ModifyProductAvailableSupplies(int productId, int quantity)
 		{
 			datos.ModifyProductAvailableSupplies(productId, quantity);

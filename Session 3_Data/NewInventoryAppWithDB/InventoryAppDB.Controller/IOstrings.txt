@@ -1,0 +1,114 @@
+# This is a comment
+; This is another comment
+
+name = value
+
+; Conditional compilation
+
+*******
+
+# Menus
+
+userMenu=***** MAIN MENU *****\n\n1. LIST inventory items\n2. CREATE new invoice\n3. DISPLAY invoices report between two dates\n4. DISPLAY invoices report per customer id\n5. EXIT application\n
+adminMenu=**** MAIN MENU ****\n\n1. LIST inventory items\n2. ADD a new item to the inventory\n3. MODIFY the number of product supplies\n4. REMOVE an item from the inventory\n5. CREATE new product category\n6. ADD new customer\n7. EDIT customer information\n8. REMOVE customer by id\n9. EXIT application\n
+DisplayInitializationParameterError=>>> Incorrect login parameter. If you want to run the app as an administrator enter parameter \'admin\' when running the app in the console.\nIf you want to run the app as a user do not enter any parameters when running the app.\n
+DisplayExitMessage=>>> You have exited the application. Have a great day!\n
+
+
+# Request Data / Input
+
+RequestUsername=Username: 
+RequestPassword=Password: 
+ChooseProductCategory=Please choose a product category: 
+ModifyProductAvailableSupplies=>>> Modifying # of product supplies. Provide updated data:\n\n
+PleaseProvideInformation=Please provide the following information:\n\n
+FirstName=First name: 
+EnterNewValue=Enter new value: 
+DisplayMessageToChooseProducts=\n\n>>> Please choose the products you want to add to the invoice: \n
+WantToAddMoreProducts=>>> Do you want to add more products to the invoice? [y] > Yes | [n] > No: 
+
+# Gets
+
+GetProductName=Product name: \n
+GetProductPrice=Price: "
+GetProductQuantity=Quantity: "
+GetProductId=Product id: 
+GetCustomerFirstName=Customer first name: 
+GetCustomerLastName=Customer last name: 
+GetCustomerTelephone=Customer telephone: 
+GetCustomerEmail=Customer email: 
+GetCategoryName=Category name: 
+GetCategoryDescription=Category description: 
+
+# Display message
+
+WelcomeUser=WELCOME TO THE INVENTORY PROGRAM\n
+DisplayLoginMessage=>>> Please log in: \n
+DisplayMessageIncorrectCredentials=\nIncorrect username or password. \nYou have {0} attempts left.\n, numberAttempts
+DisplayMessageLockedAccount=\n>>> The program has been locked. You reached the maximum number of attempts!\n\n">>> Press any key to exit
+DisplayMessageToListProductsInInventory=>>> Products in the inventory: 
+DisplayMessageToAddNewProduct=>>> Add new product to inventory: \n
+DisplayMessageToDeleteProduct=>>> Delete product from inventory: \n\n
+DisplayMessageToEditProductSupplies=>>> Edit product's available supplies: \n\n
+DisplayMessageToChooseProduct=\n>>> Please input the product id: 
+DisplayMessageToChooseCategory=\n>>> Please choose a category id from the list: \n\n
+DisplayMessageInvalidProductId=\nThe product id you entered does not exist in our records.\n
+DisplayMessageToEditCustomer=>>> Edit customer's information: \n\n
+DisplayMessageToCreateNewCategory=>>> Create a new product category: \n\n
+DisplayMessageToAddNewCustomer=>>> Add new customer to database: \n\n
+DisplayMessageToChooseCustomer=\n>>> Please choose a customer id from the list: 
+DisplayMessageInvalidCustomerId=\nThe customer id you entered does not exist in our records.\n
+DisplayMessageToDeleteCustomer=>>> Deleting a customer: \n\n
+DisplayMessageToCreateNewInvoice=>>> Create a new invoice. List of customers: \n\n
+DisplayMessageToGenerateInvoicesReportByDates=>>> Invoice report by dates. Please provide the following data: \n\n
+DisplayMessageToGenerateInvoicesReportByCustomerId=>>> Invoice report by customer id. List of customers: \n\n
+
+
+# Provide information 
+
+LoginMessageUser=You have signed in as USER\n
+ChooseAnOption=\nChoose an option: "
+InvalidInput=>>> Invalid input. Please try again!\n
+OptionNotAvailable=>>> Option not available. Please try again!\n
+LoginMessageAdmin=You have signed in as ADMIN\n
+IncorrectValue=>>> Incorrect value. Please try again:\n\n
+InvalidCategoryNumber=>>> Invalid category number. Please try again:\n\n
+InvalidProductId=>>> Invalid customer id. Please try again:\n\n
+PressAnyKeyToContinue=\n>>> Press any key to continue...\n
+InvalidCustomerId=>>> Invalid customer id. Please try again:\n
+RequestDateFormatMustBe=Format must be dd/MM/yyyy: 
+ReportOfAllTimes=>>> Invoices report af all times. Dates provided were invalid:\n\n
+AddNewProduct=\nAdding new product to the inventory... \n\n
+AddNewCategory=\nCreating new product category... \n\n
+CustomersInDB=Customers in the database: \n\n
+AddNewCustomer=\nAdding new customer to the system...\n\n
+EditCustomerInfo=>>> Edit customer's information. Note: Leave blank to keep current value!\n\n
+RemoveCustomerById=>>> Removing customer by id...\n\n
+PressKeyToAddProducts=\n\n>>> Press any key to choose the products you want to add to the invoice: 
+AddProductsToInvoice=\n>>> Add products to the new invoice....\n\n
+RemoveProductById=>>> Removing product by id...\n\n
+
+
+# Verify
+
+VerifyIfProductCategoryIsValid=\nto do: verify if category number is within range\n
+VerifyIfProductIdIsValid=\n to do: verify if product id is within range \n\n
+
+# Successfully
+
+ProductSuccessfullyAdded=>>> Product successfully added to inventory\n
+SuppliesSuccessfullyUpdated=>>> Number of supplies successfully updated
+ProductSuccessfullyRemoved=>>> Product successfully removed from inventory\n
+CategorySuccessfullyCreated=>>> Category successfully created\n
+CustomerSuccessfullyAdded=>>> The customer has been successfully added to the inventory\n
+CustomerSuccessfullyRemoved=>>> Customer successfully removed from database\n
+ProductSuccessfullyAddedToInvoice=\n\n>>> Products successfully added to invoice\n
+
+# Miscellaneous
+
+BlankLine=\n
+
+
+
+
+

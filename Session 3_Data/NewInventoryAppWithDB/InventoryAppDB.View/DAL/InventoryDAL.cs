@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryAppDB.Datos
 {
@@ -104,7 +102,6 @@ namespace InventoryAppDB.Datos
 		public Invoice GetLastInvoiceInserted()
 		{
 			Invoice lastInvoice = context.Invoices.ToList().LastOrDefault();
-
 			return lastInvoice;
 		}
 
@@ -137,6 +134,42 @@ namespace InventoryAppDB.Datos
 		{
 			context.Categories.Add(category);
 			context.SaveChanges();
+		}
+
+		public Category GetLastCategoryInserted()
+		{
+			Category lastCategory = context.Categories.ToList().LastOrDefault();
+			return lastCategory;
+		}
+
+		public Category GetFirstCategoryInserted()
+		{
+			Category firstCategory = context.Categories.ToList().FirstOrDefault();
+			return firstCategory;
+		}
+
+		public Product GetLastProductInserted()
+		{
+			Product lastProduct = context.Products.ToList().LastOrDefault();
+			return lastProduct;
+		}
+
+		public Product GetFirstProductInserted()
+		{
+			Product firstProduct = context.Products.ToList().FirstOrDefault();
+			return firstProduct;
+		}
+
+		public Customer GetLastCustomerInserted()
+		{
+			Customer lastCustomer = context.Customers.ToList().LastOrDefault();
+			return lastCustomer;
+		}
+
+		public Customer GetFirstCustomerInserted()
+		{
+			Customer firstCustomer = context.Customers.ToList().FirstOrDefault();
+			return firstCustomer;
 		}
 
 		public Customer RetrieveCustomerById(int customerId)
